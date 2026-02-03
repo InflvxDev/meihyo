@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+
+@theme {
+
+  --color-background: #222c3c;
+  --color-foreground: #fbf9ff;
+  --color-primary: #0088fc;
+  --color-secondary: #a7b0c9;
+}
+
+
+@layer base {
+  html {
+    @apply bg-background text-foreground;
+  }
+}
