@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       );
     }
 
-    // 2. Validación simple de email
+    // 2. Validación simple de email (misma que en signup)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
@@ -32,39 +32,39 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     // 4. Manejar errores específicos de Supabase
     if (error) {
-      // Credenciales inválidas
-      if (error.message === "Invalid login credentials") {
-        return new Response(
-          JSON.stringify({ 
-            error: "Email o contraseña incorrectos" 
-          }),
-          { status: 401, headers: { "Content-Type": "application/json" } }
-        );
+      // Mapear errores comunes a mensajes amigables
+      let errorMessage = error.message;
+      let statusCode = 400;
+
+      switch (error.message) {
+        case "Invalid login credentials":
+          errorMessage = "Credenciales inválidas. Verifica tu email y contraseña.";
+          statusCode = 401;
+          break;
+        case "Email not confirmed":
+          errorMessage = "Por favor confirma tu email antes de iniciar sesión.";
+          statusCode = 403;
+          break;
+        case "User not found":
+          errorMessage = "No existe una cuenta con este email.";
+          statusCode = 404;
+          break;
       }
 
-      // Usuario no confirmado
-      if (error.message.includes("Email not confirmed")) {
-        return new Response(
-          JSON.stringify({ 
-            error: "Por favor confirma tu email antes de iniciar sesión" 
-          }),
-          { status: 403, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      
       return new Response(
-        JSON.stringify({ error: error.message }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: errorMessage }),
+        { status: statusCode, headers: { "Content-Type": "application/json" } }
       );
     }
 
     // 5. Éxito - usuario autenticado
     return new Response(
       JSON.stringify({
-        mensaje: "Sesión iniciada exitosamente",
+        mensaje: "Inicio de sesión exitoso",
         usuario: {
           id: data.user?.id,
           email: data.user?.email,
+          ultimo_inicio: data.user?.last_sign_in_at,
         },
       }),
       { 
