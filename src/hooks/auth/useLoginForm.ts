@@ -8,6 +8,7 @@ export const useLoginForm = () => {
   const [formData, setFormData] = useState<LoginData>({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,5 +48,7 @@ export const useLoginForm = () => {
     loading,
     handleSubmit,
     handleChange,
+    showPassword,
+    setShowPassword,
   };
 };

@@ -1,7 +1,7 @@
 import { useLoginForm } from '../../hooks/auth/useLoginForm';
 
 const LoginForm = () => {
-  const { formData, error, loading, handleSubmit, handleChange } = useLoginForm();
+  const { formData, error, loading, handleSubmit, handleChange, showPassword, setShowPassword } = useLoginForm();
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md mx-auto">
@@ -26,15 +26,28 @@ const LoginForm = () => {
         <label className="block text-background text-sm font-medium mb-2">
           Contraseña
         </label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          placeholder="••••••••"
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            placeholder="••••••••"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-3 w-5 h-5 text-background/60 hover:text-background transition-colors"
+          >
+            {showPassword ? (
+              <svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" fill="currentColor" viewBox="0 0 959.95 959.95" xmlSpace="preserve"><path id="SVGRepo_iconCarrier" d="M7.675 503.075c41.1 88.9 106.3 164.2 188.5 217.801 84.5 55 182.6 84.1 283.8 84.1s199.3-29.1 283.8-84.2c82.2-53.5 147.4-128.8 188.5-217.7l4.9-10.5c3.7-8 3.7-17.199 0-25.199l-4.9-10.5c-41.1-88.9-106.3-164.2-188.5-217.8-84.5-55-182.6-84.1-283.8-84.1s-199.3 29.1-283.8 84.2c-82.2 53.5-147.4 128.8-188.5 217.7l-4.9 10.5a30 30 0 0 0 0 25.199zm696-171.8c57.6 37.6 104.7 88.7 137.2 148.7-32.5 60.1-79.601 111.2-137.2 148.7-32.101 20.899-66.8 37.1-103 48.2 66.2-40.601 110.3-113.601 110.3-196.9s-44.1-156.3-110.3-197c36.2 11.2 70.899 27.3 103 48.3m-447.401 0c32.101-20.9 66.8-37.1 103-48.2-66.2 40.6-110.3 113.6-110.3 196.9s44.1 156.3 110.3 197c-36.2-11.1-70.899-27.3-103-48.2-57.6-37.6-104.699-88.7-137.199-148.7 32.5-60.2 79.6-111.3 137.199-148.8"/></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 -5 16 16"><g id="SVGRepo_iconCarrier"><path id="Path_111" d="M34 11a9.33 9.33 0 0 1-7.94-5.263.5.5 0 0 1 .88-.474A8.33 8.33 0 0 0 34 10a8.33 8.33 0 0 0 7.06-4.737.5.5 0 1 1 .88.474A9.33 9.33 0 0 1 34 11" transform="translate(-26 -5)"/></g></svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* ... (El resto del JSX del formulario permanece igual) ... */}
