@@ -66,8 +66,6 @@ export const POST: APIRoute = async ({ request, cookies }) => {
           id: data.user?.id,
           email: data.user?.email,
         },
-        // El usuario ya está autenticado (sesión iniciada automáticamente)
-        sesionIniciada: !!data.session,
       }),
       { 
         status: 201, 

@@ -1,20 +1,8 @@
 import { useState } from 'react';
 import type { ChangeEvent, SyntheticEvent } from 'react';
+import type { LoginData, LoginResponse } from '../../interfaces/auth/Login';
 
-export interface LoginData {
-  email: string;
-  password: string;
-}
 
-export interface LoginResponse {
-  mensaje: string;
-  usuario: {
-    id: string;
-    email: string;
-    ultimo_inicio: string;
-  };
-  error?: string;
-}
 
 export const useLoginForm = () => {
   const [formData, setFormData] = useState<LoginData>({ email: '', password: '' });
