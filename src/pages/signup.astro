@@ -1,0 +1,58 @@
+---
+import SignUpForm from "../components/auth/SignUpForm";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="min-h-screen flex">
+    <!-- Columna izquierda (70%) con contenido decorativo -->
+    <div class="hidden md:block md:w-[70%] bg-background p-6 relative">
+      <div
+        class="h-full flex flex-col items-center justify-center text-center relative z-10"
+      >
+        <h1 class="text-foreground text-5xl md:text-6xl font-bold mb-4">
+          Únete a Meihyo
+        </h1>
+        <p class="text-secondary text-lg max-w-md">
+          Crea tu cuenta y comienza tu experiencia con nosotros.
+        </p>
+      </div>
+
+      <div class="absolute bottom-0 left-0 overflow-hidden w-full">
+        <svg
+          width="100%"
+          height="100%"
+          id="svg"
+          viewBox="0 0 1440 390"
+          xmlns="http://www.w3.org/2000/svg"
+          class="transition duration-300 ease-in-out delay-150"
+          ><path
+            d="M 0,400 L 0,0 C 95.03349282296651,64.89952153110049 190.06698564593302,129.79904306220098 274,153 C 357.933014354067,176.20095693779902 430.76555023923436,157.70334928229664 529,135 C 627.2344497607656,112.29665071770336 750.8708133971293,85.38755980861245 846,90 C 941.1291866028707,94.61244019138755 1007.7511961722489,130.74641148325358 1102,121 C 1196.248803827751,111.25358851674642 1318.1244019138755,55.62679425837321 1440,0 L 1440,400 L 0,400 Z"
+            stroke="none"
+            stroke-width="0"
+            fill="#0088fc"
+            fill-opacity="1"
+            class="transition-all duration-300 ease-in-out delay-150 path-0"
+          ></path></svg
+        >
+      </div>
+    </div>
+
+    <!-- Columna derecha (30%) con formulario -->
+    <div class="w-full md:w-[30%] bg-foreground p-6 relative">
+      <!-- Logo Meihyo en la parte superior derecha -->
+      <div class="absolute top-6 right-6">
+        <h1 class="text-primary text-2xl md:text-2xl font-bold tracking-wide">
+          Meihyo
+        </h1>
+      </div>
+
+      <div class="h-full flex flex-col items-center justify-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-8">
+          Regístrate
+        </h2>
+        <SignUpForm client:load />
+      </div>
+    </div>
+  </div>
+</Layout>
