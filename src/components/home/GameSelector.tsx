@@ -1,13 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 
 interface Game {
   id: string;
   name: string;
+  logo: string;
 }
 
 const GAMES: Game[] = [
-  { id: 'valorant', name: 'Valorant' },
-  { id: 'lol', name: 'League of Legends' },
+  { id: "valorant", name: "Valorant", logo: "/logos/valorant.webp" },
+  { id: "lol", name: "League of Legends", logo: "/logos/lol.webp" },
 ];
 
 export default function GameSelector() {
@@ -17,20 +18,24 @@ export default function GameSelector() {
   // Detectar click fuera del contenedor para resetear el estado en mobile
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setHoveredGame(null);
       }
     };
 
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  return (
+ return (
     <section className="max-w-7xl mx-auto px-4 py-24 border-t border-foreground/5" ref={containerRef}>
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+      {/* 1. CAMBIO: justify-between -> justify-start y añadimos items-start para mejor alineación visual */}
+      <div className="flex flex-col lg:flex-row items-center lg:items-start justify-start gap-12">
         
-        {/* Texto principal con ancho fijo para evitar saltos de layout */}
+        {/* Texto principal */}
         <div className="text-center lg:text-left min-w-75">
           <h2 className="text-2xl md:text-4xl font-bold tracking-tight">
             Usa Meihyo en
@@ -42,14 +47,13 @@ export default function GameSelector() {
               `}>
                 {hoveredGame || 'cualquier juego'}
               </span>
-              {/* Línea decorativa inferior */}
               <span className={`absolute -bottom-1 left-0 h-1 bg-primary transition-all duration-500 ${hoveredGame ? 'w-full' : 'w-0'}`} />
             </span>
           </h2>
         </div>
 
-        {/* Lista de juegos */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full max-w-2xl">
+        {/* 2. CAMBIO: Aseguramos que el contenedor de botones no tenga w-full y use justify-start */}
+        <div className="flex flex-wrap gap-3 justify-start">
           {GAMES.map((game) => (
             <button
               key={game.id}
@@ -57,9 +61,8 @@ export default function GameSelector() {
               onMouseLeave={() => setHoveredGame(null)}
               onClick={() => setHoveredGame(hoveredGame === game.name ? null : game.name)}
               className={`
-                group relative px-6 py-5 rounded-xl border transition-all duration-200
-                text-left overflow-hidden outline-none
-                /* Solución al flicker: usamos transform sobre un contenedor que no afecta al hit-area */
+                group relative size-20 md:size-24 rounded-xl border transition-all duration-200
+                flex items-center justify-center overflow-hidden outline-none
                 hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)]
                 ${
                   hoveredGame === game.name
@@ -68,17 +71,14 @@ export default function GameSelector() {
                 }
               `}
             >
-              <div className="relative z-10 flex flex-col gap-1">
-                <span className={`text-xs uppercase tracking-widest font-bold transition-colors ${hoveredGame === game.name ? 'text-primary' : 'text-secondary'}`}>
-                  Trackeable
-                </span>
-                <span className="font-bold text-sm md:text-base">
-                  {game.name}
-                </span>
+              <div className="relative z-10 flex items-center justify-center">
+                <img
+                  src={game.logo}
+                  alt={game.name}
+                  className="h-8 md:h-10 object-contain"
+                />
               </div>
-              
-              {/* Efecto de fondo sutil al hacer hover */}
-              <div className="absolute inset-0 bg-linerar-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
           ))}
         </div>
