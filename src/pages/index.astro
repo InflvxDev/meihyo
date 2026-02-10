@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import MobileMenu from "../components/Navbar/home/MobileMenu";
 import TypingText from "../components/home/TypingText";
+import GameSelector from "../components/home/GameSelector";
 ---
 
 <Layout>
@@ -9,59 +10,149 @@ import TypingText from "../components/home/TypingText";
     <nav class="relative bg-background border-b border-foreground/10">
       <div class="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-50 py-2">
         <div class="flex items-center justify-between">
-          <a href="/" class="relative z-50 flex items-center gap-1.5 hover:opacity-80 transition-opacity">
-            <img src="/favicon.webp" alt="Meihyo" class="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
-            <h1 class="text-foreground text-lg sm:text-xl lg:text-2xl font-bold tracking-wide">meihyo</h1>
+          <a
+            href="/"
+            class="relative z-50 flex items-center gap-1.5 hover:opacity-80 transition-opacity"
+          >
+            <img
+              src="/favicon.webp"
+              alt="Meihyo"
+              class="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12"
+            />
+            <h1
+              class="text-foreground text-lg sm:text-xl lg:text-2xl font-bold tracking-wide"
+            >
+              meihyo
+            </h1>
           </a>
           <div class="hidden md:flex items-center gap-2 sm:gap-3">
-            <a href="https://github.com/InflvxDev/meihyo" target="_blank" rel="noopener noreferrer" class="p-1.5 sm:p-2 hover:bg-foreground/5 transition-all rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 fill-foreground" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.5 11.5 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12"></path></svg>
+            <a
+              href="https://github.com/InflvxDev/meihyo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-1.5 sm:p-2 hover:bg-foreground/5 transition-all rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 sm:w-6 sm:h-6 fill-foreground"
+                viewBox="0 0 24 24"
+                ><path
+                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.5 11.5 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12"
+                ></path></svg
+              >
             </a>
-            <a href="/login" class="bg-secondary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-secondary">Iniciar Sesión</a>
-            <a href="/signup" class="bg-primary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-primary">Comienza tu viaje</a>
+            <a
+              href="/login"
+              class="bg-secondary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-secondary"
+              >Iniciar Sesión</a
+            >
+            <a
+              href="/signup"
+              class="bg-primary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-primary"
+              >Comienza tu viaje</a
+            >
           </div>
           <MobileMenu client:load />
         </div>
       </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 py-8 sm:py-12 flex flex-col items-center justify-center pt-12">
-      <div class="text-center space-y-4 w-full ">
-        <h1 class="text-foreground text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-medium tracking-wide">
+    <main
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 py-8 sm:py-12 flex flex-col items-center justify-center pt-12"
+    >
+      <div class="text-center space-y-4 w-full">
+        <h1
+          class="text-foreground text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-medium tracking-wide"
+        >
           Construye un camino <br /> para tus logros
         </h1>
-        <h2 class="text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-semibold tracking-wide">
+        <h2
+          class="text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-semibold tracking-wide"
+        >
           Mejora tu juego
         </h2>
-        <p class="font-sans text-secondary text-base md:text-xl font-medium leading-relaxed max-w-2xl mx-auto mt-14">
-          Meihyo es una plataforma de seguimiento de entrenamientos y partidas competitivas. Consolida sesiones, analiza metas y alcanza tu mejor versión.
+        <p
+          class="font-sans text-secondary text-base md:text-xl font-medium leading-relaxed max-w-2xl mx-auto mt-14"
+        >
+          Meihyo es una plataforma de seguimiento de entrenamientos y partidas
+          competitivas. Consolida sesiones, analiza metas y alcanza tu mejor
+          versión.
         </p>
 
         <div class="flex flex-row gap-4 justify-center mt-12">
-          <a href="/signup" class="bg-primary/60 text-foreground px-6 py-2 rounded-lg text-sm font-semibold hover:brightness-125 transition-all border border-primary">Comienza tu viaje</a>
-          <a href="/demo" class="bg-secondary/60 text-foreground px-6 py-2 rounded-lg text-sm font-semibold hover:brightness-125 transition-all border border-secondary">Ver Demo</a>
+          <a
+            href="/signup"
+            class="bg-primary/60 text-foreground px-6 py-2 rounded-lg text-sm font-semibold hover:brightness-125 transition-all border border-primary"
+            >Comienza tu viaje</a
+          >
+          <a
+            href="/demo"
+            class="bg-secondary/60 text-foreground px-6 py-2 rounded-lg text-sm font-semibold hover:brightness-125 transition-all border border-secondary"
+            >Ver Demo</a
+          >
         </div>
 
-        <div class="grid grid-cols-3 auto-rows-max md:grid-rows-6 gap-4 md:gap-5 w-full mt-40 px-0">
-          
-          <div class="col-start-1 row-start-1 col-span-3 md:col-start-1 md:row-start-1 md:col-span-2 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-end items-start text-left group max-h-40 md:max-h-none">
-            <span class="text-primary text-xs font-bold tracking-widest uppercase mb-2">Performance Tracker</span>
-            <h3 class="text-2xl md:text-3xl font-bold mb-2 group-hover:text-primary transition-colors">Visualiza tu evolución</h3>
-            <p class="text-secondary text-sm md:text-base max-w-md leading-relaxed">Un panel diseñado para identificar rachas de victorias, picos de rendimiento técnico y áreas de mejora mediante gráficas dinámicas de progreso mensual.</p>
+        <div
+          class="grid grid-cols-3 auto-rows-max md:grid-rows-6 gap-4 md:gap-5 w-full mt-40 px-0"
+        >
+          <div
+            class="col-start-1 row-start-1 col-span-3 md:col-start-1 md:row-start-1 md:col-span-2 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-end items-start text-left group max-h-40 md:max-h-none"
+          >
+            <span
+              class="text-primary text-xs font-bold tracking-widest uppercase mb-2"
+              >Performance Tracker</span
+            >
+            <h3
+              class="text-2xl md:text-3xl font-bold mb-2 group-hover:text-primary transition-colors"
+            >
+              Visualiza tu evolución
+            </h3>
+            <p
+              class="text-secondary text-sm md:text-base max-w-md leading-relaxed"
+            >
+              Un panel diseñado para identificar rachas de victorias, picos de
+              rendimiento técnico y áreas de mejora mediante gráficas dinámicas
+              de progreso mensual.
+            </p>
           </div>
 
-          <div class="col-start-1 row-start-2 col-span-3 md:col-start-1 md:row-start-3 md:col-span-1 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center items-center text-center max-h-40 md:max-h-none">
-             <div class="text-primary mb-4 p-3 bg-primary/10 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-             </div>
-             <h3 class="font-bold text-lg mb-1">Métricas de Éxito</h3>
-             <p class="text-xs text-secondary leading-snug">Winrate, KDA y ADR analizados por mapa y rol para optimizar tu estilo.</p>
+          <div
+            class="col-start-1 row-start-2 col-span-3 md:col-start-1 md:row-start-3 md:col-span-1 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center items-center text-center max-h-40 md:max-h-none"
+          >
+            <div class="text-primary mb-4 p-3 bg-primary/10 rounded-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                ></path></svg
+              >
+            </div>
+            <h3 class="font-bold text-lg mb-1">Métricas de Éxito</h3>
+            <p class="text-xs text-secondary leading-snug">
+              Winrate, KDA y ADR analizados por mapa y rol para optimizar tu
+              estilo.
+            </p>
           </div>
 
-          <div class="col-start-1 row-start-3 col-span-3 md:col-start-2 md:row-start-3 md:col-span-1 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center items-start text-left group max-h-40 md:max-h-none">
-            <h3 class="text-lg font-bold group-hover:text-primary transition-colors">Bitácora de Notas</h3>
-            <p class="text-xs text-secondary mt-2 font-normal leading-relaxed italic">
-              "<TypingText 
+          <div
+            class="col-start-1 row-start-3 col-span-3 md:col-start-2 md:row-start-3 md:col-span-1 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center items-start text-left group max-h-40 md:max-h-none"
+          >
+            <h3
+              class="text-lg font-bold group-hover:text-primary transition-colors"
+            >
+              Bitácora de Notas
+            </h3>
+            <p
+              class="text-xs text-secondary mt-2 font-normal leading-relaxed italic"
+            >
+              "<TypingText
                 client:load
                 texts={[
                   "Hoy jugué con poco sueño y se notó en mi reacción...",
@@ -75,106 +166,250 @@ import TypingText from "../components/home/TypingText";
                   "Feedeé mucho en early, debo respetar más los powerspikes...",
                   "Clutch 1v4 en Pearl, la Vandal me respondió increíble...",
                   "Mi macro game está mejorando, hoy rotamos perfecto al Baron...",
-                  "Falló el spike plant, me apuré demasiado sin checkear esquinas..."
+                  "Falló el spike plant, me apuré demasiado sin checkear esquinas...",
                 ]}
                 speed={30}
                 delayBetweenTexts={2000}
               />"
             </p>
-            <p class="text-[10px] text-foreground/40 mt-4 uppercase tracking-tighter">Etiqueta tus emociones y detecta el 'Tilt'.</p>
+            <p
+              class="text-[10px] text-foreground/40 mt-4 uppercase tracking-tighter"
+            >
+              Etiqueta tus emociones y detecta el 'Tilt'.
+            </p>
           </div>
 
-          <div class="col-start-1 row-start-4 col-span-3 md:col-start-3 md:row-start-1 md:col-span-1 md:row-span-3 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-8 flex flex-col justify-start overflow-hidden">
+          <div
+            class="col-start-1 row-start-4 col-span-3 md:col-start-3 md:row-start-1 md:col-span-1 md:row-span-3 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-8 flex flex-col justify-start overflow-hidden"
+          >
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Historial</h3>
-                <span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full animate-pulse uppercase font-bold">Live</span>
+              <h3 class="text-xl font-bold">Historial</h3>
+              <span
+                class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full animate-pulse uppercase font-bold"
+                >Live</span
+              >
             </div>
             <div class="space-y-3">
-                {[1, 2, 3, 4, 5].map((i) => (
-                    <div class={`group h-12 w-full bg-foreground/5 rounded border border-foreground/10 flex items-center px-3 justify-between hover:bg-foreground/10 transition-all cursor-default timeline-view ${i % 2 === 0 ? 'animate-fade-in-left' : 'animate-fade-in-right'} `}>
-                        <div class={`w-2 h-2 rounded-full ${i % 2 === 0 ? 'bg-primary ' : 'bg-secondary'}`}></div>
-                        <div class="flex flex-col gap-1 items-end">
-                            <div class="h-1.5 w-16 bg-foreground/20 rounded"></div>
-                            <div class="h-1 w-8 bg-foreground/10 rounded"></div>
-                        </div>
+              {
+                [1, 2, 3, 4, 5].map((i) => (
+                  <div
+                    class={`group h-12 w-full bg-foreground/5 rounded border border-foreground/10 flex items-center px-3 justify-between hover:bg-foreground/10 transition-all cursor-default timeline-view ${i % 2 === 0 ? "animate-fade-in-left" : "animate-fade-in-right"} `}
+                  >
+                    <div
+                      class={`w-2 h-2 rounded-full ${i % 2 === 0 ? "bg-primary " : "bg-secondary"}`}
+                    />
+                    <div class="flex flex-col gap-1 items-end">
+                      <div class="h-1.5 w-16 bg-foreground/20 rounded" />
+                      <div class="h-1 w-8 bg-foreground/10 rounded" />
                     </div>
-                ))}
+                  </div>
+                ))
+              }
             </div>
           </div>
 
-          <div class="col-start-1 row-start-5 col-span-3 md:col-start-1 md:row-start-5 md:col-span-2 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center text-left max-h-40 md:max-h-none">
+          <div
+            class="col-start-1 row-start-5 col-span-3 md:col-start-1 md:row-start-5 md:col-span-2 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center text-left max-h-40 md:max-h-none"
+          >
             <div class="flex items-center gap-4 mb-4">
-                <h3 class="text-2xl font-bold">Metas Inteligentes</h3>
-                <div class="h-px grow bg-foreground/10"></div>
+              <h3 class="text-2xl font-bold">Metas Inteligentes</h3>
+              <div class="h-px grow bg-foreground/10"></div>
             </div>
-            <p class="text-secondary text-sm md:text-base mb-6 max-w-lg">Configura objetivos basados en datos reales. Meihyo te alertará si te desvías de tu plan de entrenamiento semanal.</p>
+            <p class="text-secondary text-sm md:text-base mb-6 max-w-lg">
+              Configura objetivos basados en datos reales. Meihyo te alertará si
+              te desvías de tu plan de entrenamiento semanal.
+            </p>
             <div class="flex gap-2">
-                <span class="text-[10px] border border-foreground/20 px-2 py-1 rounded text-secondary italic">#Consistency</span>
-                <span class="text-[10px] border border-foreground/20 px-2 py-1 rounded text-secondary italic">#AimLab</span>
+              <span
+                class="text-[10px] border border-foreground/20 px-2 py-1 rounded text-secondary italic"
+                >#Consistency</span
+              >
+              <span
+                class="text-[10px] border border-foreground/20 px-2 py-1 rounded text-secondary italic"
+                >#AimLab</span
+              >
             </div>
           </div>
 
-          <div class="col-start-1 row-start-6 col-span-3 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-3 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col items-center justify-center text-center group">
-            <div class="mb-4 opacity-40 group-hover:opacity-100 transition-opacity">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 fill-foreground" viewBox="0 0 24 24"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.658 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.803 5.625-5.475 5.92.42.372.79 1.102.79 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.63-5.37-12-12-12z"/></svg>
+          <div
+            class="col-start-1 row-start-6 col-span-3 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-3 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col items-center justify-center text-center group"
+          >
+            <div
+              class="mb-4 opacity-40 group-hover:opacity-100 transition-opacity"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-12 h-12 fill-foreground"
+                viewBox="0 0 24 24"
+                ><path
+                  d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.658 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.803 5.625-5.475 5.92.42.372.79 1.102.79 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.63-5.37-12-12-12z"
+                ></path></svg
+              >
             </div>
             <h3 class="font-bold text-lg mb-2">Transparente</h3>
-            <p class="text-xs text-secondary mb-6 leading-relaxed">Sin APIs privadas ni tracking oculto. Tu progreso es solo tuyo.</p>
-            <a href="https://github.com/InflvxDev/meihyo" target="_blank" class="text-primary text-[10px] font-bold border border-primary/30 px-4 py-2 rounded-full hover:bg-primary/10 transition-all uppercase tracking-widest">Contribuir en GitHub</a>
+            <p class="text-xs text-secondary mb-6 leading-relaxed">
+              Sin APIs privadas ni tracking oculto. Tu progreso es solo tuyo.
+            </p>
+            <a
+              href="https://github.com/InflvxDev/meihyo"
+              target="_blank"
+              class="text-primary text-[10px] font-bold border border-primary/30 px-4 py-2 rounded-full hover:bg-primary/10 transition-all uppercase tracking-widest"
+              >Contribuir en GitHub</a
+            >
           </div>
-
         </div>
-
-        
       </div>
     </main>
 
-    <section class="max-w-7xl mx-auto px-4 py-24 border-t border-foreground/5 timeline-view animate-fade-in animate-range-[entry_10%_contain_30%]">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center ">
-            <div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 italic text-primary">No es solo jugar, es entender por qué ganas.</h2>
-                <p class="text-secondary leading-relaxed mb-8 text-lg">
-                    A diferencia de los trackers automáticos que solo extraen datos del API, Meihyo te permite añadir el factor humano: ¿Estabas cansado? ¿Fue un error de posicionamiento o de puntería? La clave del éxito indie es la introspección.
-                </p>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3">
-                        <div class="w-5 h-5 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">✓</div>
-                        <span class="font-medium">Sin anuncios intrusivos</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <div class="w-5 h-5 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">✓</div>
-                        <span class="font-medium">Privacidad total de tus datos</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="bg-foreground/5 aspect-video rounded-xl border border-foreground/10 flex items-center justify-center italic text-secondary/50 relative group overflow-hidden">
-                <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <span class="relative z-10">[ Screenshot del Dashboard en modo oscuro ]</span>
-            </div>
+    <GameSelector client:load />
+
+    <section
+      class="max-w-7xl mx-auto px-4 py-24 border-t border-foreground/5 timeline-view animate-fade-in animate-range-[entry_10%_contain_30%]"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 italic text-primary">
+            No es solo jugar, es entender por qué ganas.
+          </h2>
+          <p class="text-secondary leading-relaxed mb-8 text-lg">
+            A diferencia de los trackers automáticos que solo extraen datos del
+            API, Meihyo te permite añadir el factor humano: ¿Estabas cansado?
+            ¿Fue un error de posicionamiento o de puntería? La clave del éxito
+            indie es la introspección.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-3">
+              <div
+                class="w-5 h-5 rounded bg-primary/20 flex items-center justify-center text-primary text-xs"
+              >
+                ✓
+              </div>
+              <span class="font-medium">Sin anuncios intrusivos</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <div
+                class="w-5 h-5 rounded bg-primary/20 flex items-center justify-center text-primary text-xs"
+              >
+                ✓
+              </div>
+              <span class="font-medium">Privacidad total de tus datos</span>
+            </li>
+          </ul>
         </div>
+        <div
+          class="bg-foreground/5 aspect-video rounded-xl border border-foreground/10 flex items-center justify-center italic text-secondary/50 relative group overflow-hidden"
+        >
+          <div
+            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+          </div>
+          <span class="relative z-10"
+            >[ Screenshot del Dashboard en modo oscuro ]</span
+          >
+        </div>
+      </div>
     </section>
 
-    <footer class="bg-background border-t border-foreground/10 py-16 mt-20">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center opacity-70 gap-8">
-            <div class="flex items-center gap-3">
-                <img src="/favicon.webp" class="w-8 h-8 opacity-80" />
-                <div class="flex flex-col">
-                    <span class="text-sm font-bold tracking-tighter">meihyo</span>
-                    <span class="text-[10px] text-secondary">InflvDev ©2026</span>
-                </div>
-            </div>
-            <div class="flex gap-8 text-[10px] uppercase tracking-[0.2em] font-medium">
-                <a href="https://github.com/InflvxDev/meihyo" class="hover:text-primary transition-colors">Github</a>
-                <a href="#" class="hover:text-primary transition-colors">Discord</a>
-                <a href="#" class="hover:text-primary transition-colors">Soporte</a>
-            </div>
+    <section class="max-w-7xl mx-auto px-4 py-20">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">
+        Domina tu progreso en 3 pasos
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex flex-col items-center text-center p-6">
+          <div
+            class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold mb-4 border border-primary/40"
+          >
+            1
+          </div>
+          <h3 class="font-bold mb-2">Registra tu sesión</h3>
+          <p class="text-sm text-secondary">
+            Sincroniza tus partidas o añade manualmente tus entrenamientos de
+            aim y táctica.
+          </p>
         </div>
+        <div class="flex flex-col items-center text-center p-6">
+          <div
+            class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold mb-4 border border-primary/40"
+          >
+            2
+          </div>
+          <h3 class="font-bold mb-2">Añade el contexto</h3>
+          <p class="text-sm text-secondary">
+            ¿Dormiste bien? ¿Había toxicidad? Registra los factores que los
+            trackers automáticos no ven.
+          </p>
+        </div>
+        <div class="flex flex-col items-center text-center p-6">
+          <div
+            class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold mb-4 border border-primary/40"
+          >
+            3
+          </div>
+          <h3 class="font-bold mb-2">Analiza y Ajusta</h3>
+          <p class="text-sm text-secondary">
+            Revisa patrones de rendimiento y ajusta tu rutina para romper tu
+            estancamiento.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="max-w-5xl mx-auto px-4 py-20 text-center timeline-view animate-zoom-in animate-range-[entry_10%_contain_30%]"
+    >
+      <div
+        class="bg-linear-to-b from-primary/10 to-transparent border border-primary/20 rounded-3xl p-12"
+      >
+        <h2 class="text-3xl md:text-5xl font-bold mb-6">
+          ¿Listo para dejar de jugar en piloto automático?
+        </h2>
+        <p class="text-secondary mb-10 max-w-xl mx-auto">
+          Únete a los jugadores que ya están transformando sus horas de juego en
+          progreso real y medible.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/signup"
+            class="bg-primary text-background px-8 py-3 rounded-xl font-bold hover:scale-105 transition-transform"
+            >Crear mi cuenta gratis</a
+          >
+          <a
+            href="https://github.com/InflvxDev/meihyo"
+            class="border border-foreground/20 px-8 py-3 rounded-xl font-bold hover:bg-foreground/5 transition-all"
+            >Explorar código</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-foreground/1 border-t border-foreground/10 py-16 mt-20">
+      <div
+        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center opacity-70 gap-8"
+      >
+        <div class="flex items-center gap-3">
+          <img src="/favicon.webp" class="w-8 h-8 opacity-80" />
+          <div class="flex flex-col">
+            <span class="text-sm font-bold tracking-tighter">meihyo</span>
+            <span class="text-[10px] text-secondary">InflvDev ©2026</span>
+          </div>
+        </div>
+        <div
+          class="flex gap-8 text-[10px] uppercase tracking-[0.2em] font-medium"
+        >
+          <a
+            href="https://github.com/InflvxDev/meihyo"
+            class="hover:text-primary transition-colors">Github</a
+          >
+          <a href="#" class="hover:text-primary transition-colors">Discord</a>
+          <a href="#" class="hover:text-primary transition-colors">Soporte</a>
+        </div>
+      </div>
     </footer>
   </div>
 </Layout>
 
 <style>
-    .grid > div {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+  .grid > div {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 </style>
