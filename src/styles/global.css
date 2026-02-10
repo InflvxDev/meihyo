@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import 'tailwind-animations';
 
 @theme {
   --color-background: #222c3c;
