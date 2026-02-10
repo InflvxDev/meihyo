@@ -37,7 +37,7 @@ export default function GameSelector() {
         
         {/* Texto principal */}
         <div className="text-center lg:text-left min-w-75">
-          <h2 className="text-2xl md:text-4xl font-bold tracking-tight">
+          <h2 className="text-2xl md:text-4xl font-medium tracking-tight">
             Usa Meihyo en
             <br />
             <span className="relative inline-block mt-2">
