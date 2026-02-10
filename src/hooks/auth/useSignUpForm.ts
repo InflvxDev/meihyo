@@ -12,7 +12,6 @@ export const useSignUpForm = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,7 +65,5 @@ export const useSignUpForm = () => {
     handleChange,
     showPassword,
     setShowPassword,
-    showConfirmPassword,
-    setShowConfirmPassword,
   };
 };

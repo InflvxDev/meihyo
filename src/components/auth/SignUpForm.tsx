@@ -1,7 +1,7 @@
 import { useSignUpForm } from '../../hooks/auth/useSignUpForm';
 
 const SignUpForm = () => {
-  const { formData, error, loading, handleSubmit, handleChange, showPassword, setShowPassword, showConfirmPassword, setShowConfirmPassword } = useSignUpForm();
+  const { formData, error, loading, handleSubmit, handleChange, showPassword, setShowPassword } = useSignUpForm();
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md mx-auto">
@@ -26,29 +26,16 @@ const SignUpForm = () => {
         <label className="block text-background text-sm font-medium mb-2">
           Contraseña
         </label>
-        <div className="relative">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            minLength={8}
-            className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-            placeholder="••••••••"
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-3 w-5 h-5 text-background/60 hover:text-background transition-colors"
-          >
-            {showPassword ? (
-              <svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" fill="currentColor" viewBox="0 0 959.95 959.95" xmlSpace="preserve" xmlnsXlink="http://www.w3.org/1999/xlink"><path id="SVGRepo_iconCarrier" d="M7.675 503.075c41.1 88.9 106.3 164.2 188.5 217.801 84.5 55 182.6 84.1 283.8 84.1s199.3-29.1 283.8-84.2c82.2-53.5 147.4-128.8 188.5-217.7l4.9-10.5c3.7-8 3.7-17.199 0-25.199l-4.9-10.5c-41.1-88.9-106.3-164.2-188.5-217.8-84.5-55-182.6-84.1-283.8-84.1s-199.3 29.1-283.8 84.2c-82.2 53.5-147.4 128.8-188.5 217.7l-4.9 10.5a30 30 0 0 0 0 25.199zm696-171.8c57.6 37.6 104.7 88.7 137.2 148.7-32.5 60.1-79.601 111.2-137.2 148.7-32.101 20.899-66.8 37.1-103 48.2 66.2-40.601 110.3-113.601 110.3-196.9s-44.1-156.3-110.3-197c36.2 11.2 70.899 27.3 103 48.3m-447.401 0c32.101-20.9 66.8-37.1 103-48.2-66.2 40.6-110.3 113.6-110.3 196.9s44.1 156.3 110.3 197c-36.2-11.1-70.899-27.3-103-48.2-57.6-37.6-104.699-88.7-137.199-148.7 32.5-60.2 79.6-111.3 137.199-148.8"/></svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 -5 16 16"><g id="SVGRepo_iconCarrier"><path id="Path_111" d="M34 11a9.33 9.33 0 0 1-7.94-5.263.5.5 0 0 1 .88-.474A8.33 8.33 0 0 0 34 10a8.33 8.33 0 0 0 7.06-4.737.5.5 0 1 1 .88.474A9.33 9.33 0 0 1 34 11" transform="translate(-26 -5)"/></g></svg>
-            )}
-          </button>
-        </div>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          minLength={8}
+          className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="••••••••"
+        />
         <p className="text-background/70 text-xs mt-1">
           Mínimo 8 caracteres
         </p>
@@ -59,35 +46,30 @@ const SignUpForm = () => {
         <label className="block text-background text-sm font-medium mb-2">
           Confirmar Contraseña
         </label>
-        <div className="relative">
-          <input
-            type={showConfirmPassword ? 'text' : 'password'}
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            minLength={8}
-            className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-            placeholder="••••••••"
-          />
-          <button
-            type="button"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            className="absolute right-3 top-3 w-5 h-5 text-background/60 hover:text-background transition-colors"
-          >
-            {showConfirmPassword ? (
-              <svg fill="currentColor" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 959.95 959.95" xmlSpace="preserve"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M7.675,503.075c41.1,88.9,106.3,164.2,188.5,217.801c84.5,55,182.6,84.1,283.8,84.1s199.3-29.1,283.8-84.2 c82.2-53.5,147.4-128.8,188.5-217.7l4.9-10.5c3.7-8,3.7-17.199,0-25.199l-4.9-10.5c-41.1-88.9-106.3-164.2-188.5-217.8 c-84.5-55-182.6-84.1-283.8-84.1s-199.3,29.1-283.8,84.2c-82.2,53.5-147.4,128.8-188.5,217.7l-4.9,10.5 c-3.699,8-3.699,17.199,0,25.199L7.675,503.075z M703.675,331.275c57.6,37.6,104.7,88.7,137.2,148.7 c-32.5,60.1-79.601,111.2-137.2,148.7c-32.101,20.899-66.8,37.1-103,48.2c66.2-40.601,110.3-113.601,110.3-196.9 s-44.1-156.3-110.3-197C636.875,294.175,671.574,310.275,703.675,331.275z M256.274,331.275c32.101-20.9,66.8-37.1,103-48.2 c-66.2,40.6-110.3,113.6-110.3,196.9s44.1,156.3,110.3,197c-36.2-11.1-70.899-27.3-103-48.2c-57.6-37.6-104.699-88.7-137.199-148.7 C151.575,419.875,198.675,368.775,256.274,331.275z"></path> </g> </g></svg>
-            ) : (
-              <svg fill="currentColor" viewBox="0 -5 16 16" xmlns="http://www.w3.org/2000/svg">
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path id="Path_111" d="M34,11a9.326,9.326,0,0,1-7.94-5.263.5.5,0,0,1,.88-.474A8.333,8.333,0,0,0,34,10a8.333,8.333,0,0,0,7.06-4.737.5.5,0,1,1,.88.474A9.326,9.326,0,0,1,34,11Z" transform="translate(-26 -5)"></path>
-                </g>
-              </svg>
-            )}
-          </button>
-        </div>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
+          minLength={8}
+          className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="••••••••"
+        />
+      </div>
+
+      {/* Checkbox para mostrar/ocultar contraseña */}
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          checked={showPassword}
+          onChange={(e) => setShowPassword(e.target.checked)}
+          className="w-4 h-4 rounded border-secondary text-primary focus:ring-primary cursor-pointer"
+          id="showPassword"
+        />
+        <label htmlFor="showPassword" className="ml-2 text-background text-sm cursor-pointer">
+          Mostrar contraseña
+        </label>
       </div>
 
       {error && (
