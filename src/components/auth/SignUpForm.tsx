@@ -7,7 +7,7 @@ const SignUpForm = () => {
     <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md mx-auto">
       {/* Campo Email */}
       <div>
-        <label className="block text-background text-sm font-medium mb-2">
+        <label className="block text-foreground text-sm font-medium mb-2">
           Correo Electrónico
         </label>
         <input
@@ -16,14 +16,14 @@ const SignUpForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-4 py-3 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary focus:outline-none focus:border-primary/50 focus:bg-secondary/20 transition-all"
           placeholder="tu@email.com"
         />
       </div>
 
       {/* Campo Contraseña */}
       <div>
-        <label className="block text-background text-sm font-medium mb-2">
+        <label className="block text-foreground text-sm font-medium mb-2">
           Contraseña
         </label>
         <input
@@ -33,17 +33,17 @@ const SignUpForm = () => {
           onChange={handleChange}
           required
           minLength={8}
-          className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-4 py-3 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary focus:outline-none focus:border-primary/50 focus:bg-secondary/20 transition-all"
           placeholder="••••••••"
         />
-        <p className="text-background/70 text-xs mt-1">
+        <p className="text-secondary/70 text-xs mt-1">
           Mínimo 8 caracteres
         </p>
       </div>
 
       {/* Campo Confirmar Contraseña */}
       <div>
-        <label className="block text-background text-sm font-medium mb-2">
+        <label className="block text-foreground text-sm font-medium mb-2">
           Confirmar Contraseña
         </label>
         <input
@@ -53,7 +53,7 @@ const SignUpForm = () => {
           onChange={handleChange}
           required
           minLength={8}
-          className="w-full px-4 py-3 bg-foreground border border-secondary rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-4 py-3 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary focus:outline-none focus:border-primary/50 focus:bg-secondary/20 transition-all"
           placeholder="••••••••"
         />
       </div>
@@ -67,7 +67,7 @@ const SignUpForm = () => {
           className="w-4 h-4 rounded border-secondary text-primary focus:ring-primary cursor-pointer"
           id="showPassword"
         />
-        <label htmlFor="showPassword" className="ml-2 text-background text-sm cursor-pointer">
+        <label htmlFor="showPassword" className="ml-2 text-foreground text-sm cursor-pointer">
           Mostrar contraseña
         </label>
       </div>
@@ -86,7 +86,7 @@ const SignUpForm = () => {
         {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
       </button>
 
-      <p className="text-center text-background text-sm">
+      <p className="text-center text-secondary text-sm">
         ¿Ya tienes una cuenta?{' '}
         <a href="/login" className="text-primary font-medium hover:text-primary/80">
           Inicia sesión aquí

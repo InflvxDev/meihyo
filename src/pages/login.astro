@@ -3,56 +3,51 @@ import LoginForm from "../components/auth/LoginForm";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-  <div class="min-h-screen flex">
-    <!-- Columna izquierda con logo -->
-    <div class="w-full md:w-[30%] bg-foreground p-6 relative">
-      <!-- Logo Meihyo en la parte superior izquierda -->
-      <a href="/" class="absolute top-6 left-6 hover:opacity-80 transition-opacity flex items-center gap-1">
-        <img src="/favicon.webp" alt="Meihyo" class="w-12 h-12" />
-        <h1 class="text-primary text-2xl md:text-2xl font-bold tracking-wide">
-          meihyo
-        </h1>
+<Layout title="Login | Meihyo">
+  <div class="min-h-screen flex flex-col md:flex-row bg-background">
+    
+    <main class="w-full md:w-[40%] lg:w-[35%] p-8 flex flex-col relative bg-card shadow-xl z-20">
+      
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-all group w-fit">
+        <img src="/favicon.webp" alt="Meihyo" class="w-10 h-10 group-hover:rotate-12 transition-transform" />
+        <span class="text-foreground text-2xl font-bold tracking-tight">meihyo</span>
       </a>
 
-      <div class="h-full flex flex-col items-center justify-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-8">Inicia Sesión</h2>
+      <div class="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full py-12">
+        <header class="mb-8">
+          <h1 class="text-3xl font-extrabold text-foreground tracking-tight">
+            Inicia Sesión
+          </h1>
+          <p class="text-secondary mt-2">
+            Ingresa tus credenciales para acceder a tu cuenta.
+          </p>
+        </header>
+
         <LoginForm client:load />
       </div>
+    </main>
 
-      <!-- Contenido adicional de la columna izquierda puede ir aquí -->
-    </div>
-
-    <div class="hidden md:block md:w-[70%] bg-background p-6 relative">
-      <div
-        class="h-full flex flex-col items-center justify-center text-center relative z-10"
-      >
-        <h1 class="text-foreground text-5xl md:text-6xl font-bold mb-4">
-          Bienvenido de Vuelta
-        </h1>
-        <p class="text-secondary text-lg max-w-md">
-          Nos alegra verte de nuevo, puedes iniciar sesión para continuar.
+    <section class="hidden md:flex md:w-[60%] lg:w-[65%] bg-primary/5 relative overflow-hidden items-center justify-center p-12">
+      <div class="absolute inset-0 bg-linear-to-br from-primary/20 via-transparent to-background/50"></div>
+      
+      <div class="relative z-10 text-center space-y-6 max-w-lg">
+        <h2 class="text-foreground text-5xl lg:text-6xl font-black leading-tight">
+          Bienvenido de <span class="text-primary">Vuelta</span>
+        </h2>
+        <p class="text-foreground/80 text-lg leading-relaxed">
+          Gestiona tus proyectos con la eficiencia que solo <strong>Meihyo</strong> puede ofrecerte.
         </p>
       </div>
 
-      <div class="absolute bottom-0 right-0 overflow-hidden w-full">
+      <div class="absolute bottom-0 left-0 w-full leading-0">
         <svg
-          width="100%"
-          height="100%"
-          id="svg"
-          viewBox="0 0 1440 390"
+          viewBox="0 0 1440 320"
           xmlns="http://www.w3.org/2000/svg"
-          class="transition duration-300 ease-in-out delay-150"
-          ><path
-            d="M 0,400 L 0,0 C 115.4736842105263,75.66507177033493 230.9473684210526,151.33014354066987 325,167 C 419.0526315789474,182.66985645933013 491.68421052631584,138.3444976076555 586,138 C 680.3157894736842,137.6555023923445 796.315789473684,181.29186602870814 890,212 C 983.684210526316,242.70813397129186 1055.0526315789475,260.4880382775119 1143,223 C 1230.9473684210525,185.51196172248805 1335.4736842105262,92.75598086124403 1440,0 L 1440,400 L 0,400 Z"
-            stroke="none"
-            stroke-width="0"
-            fill="#0088fc"
-            fill-opacity="1"
-            class="transition-all duration-300 ease-in-out delay-150 path-0"
-          ></path></svg
+          class="w-full h-auto fill-primary/10"
         >
+          <path d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,213.3C960,224,1056,192,1152,165.3C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
       </div>
-    </div>
+    </section>
   </div>
 </Layout>
