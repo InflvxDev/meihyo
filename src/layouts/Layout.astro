@@ -1,6 +1,12 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import '../styles/global.css';
+
+interface Props {
+	title?: string;
+}
+
+const { title = "Meihyo" } = Astro.props;
 ---
 <!doctype html>
 <html lang="es">
@@ -10,7 +16,7 @@ import '../styles/global.css';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" href="/favicon.webp" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Meihyo</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />

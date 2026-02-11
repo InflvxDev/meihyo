@@ -1,0 +1,20 @@
+---
+import Layout from "./Layout.astro";
+import UserNavbar from "../components/shared/navbar/UserNavbar";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+const { session } = Astro.locals;
+---
+
+<Layout title={title}>
+  <div class="min-h-screen bg-background text-foreground">
+    <UserNavbar client:load userEmail={session?.user.email ?? ""} />
+    <main>
+      <slot />
+    </main>
+  </div>
+</Layout>
