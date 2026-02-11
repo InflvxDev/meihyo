@@ -7,12 +7,12 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const { session } = Astro.locals;
+const { user } = Astro.locals;
 ---
 
 <Layout title={title}>
   <div class="min-h-screen bg-background text-foreground">
-    <UserNavbar client:load userEmail={session?.user.email ?? ""} />
+    <UserNavbar client:load userEmail={user?.email ?? ""} />
     <main>
       <slot />
     </main>

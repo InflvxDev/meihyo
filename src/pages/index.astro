@@ -3,6 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import TypingText from "../components/home/TypingText";
 import GameSelector from "../components/home/GameSelector";
 import MobileMenu from "../components/home/Navbar/MobileMenu";
+import UserMenu from "../components/shared/navbar/UserMenu";
+
+const user = Astro.locals.user;
+const userEmail = user?.email;
 ---
 
 <Layout>
@@ -41,18 +45,40 @@ import MobileMenu from "../components/home/Navbar/MobileMenu";
                 ></path></svg
               >
             </a>
-            <a
-              href="/login"
-              class="bg-secondary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-secondary"
-              >Iniciar Sesión</a
-            >
-            <a
-              href="/signup"
-              class="bg-primary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-primary"
-              >Comienza tu viaje</a
-            >
+            {user ? (
+              <>
+                <a
+                  href="/dashboard"
+                  class="bg-primary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-primary"
+                >
+                  Mi Progreso
+                </a>
+                <UserMenu client:load userEmail={userEmail} />
+              </>
+            ) : (
+              <>
+                <a
+                  href="/login"
+                  class="bg-secondary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-secondary"
+                >
+                  Iniciar Sesión
+                </a>
+                <a
+                  href="/signup"
+                  class="bg-primary/60 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold hover:brightness-125 transition-all border border-primary"
+                >
+                  Comienza tu viaje
+                </a>
+              </>
+            )}
           </div>
-          <MobileMenu client:load />
+          <div class="md:hidden">
+            {user ? (
+              <UserMenu client:load userEmail={userEmail} />
+            ) : (
+              <MobileMenu client:load />
+            )}
+          </div>
         </div>
       </div>
     </nav>
