@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useGameSelector } from "../../hooks/home/useGameSelector";
 
 interface Game {
   id: string;
@@ -12,23 +12,7 @@ const GAMES: Game[] = [
 ];
 
 export default function GameSelector() {
-  const [hoveredGame, setHoveredGame] = useState<string | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Detectar click fuera del contenedor para resetear el estado en mobile
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setHoveredGame(null);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  const { hoveredGame, setHoveredGame, containerRef } = useGameSelector();
 
  return (
     <section className="max-w-7xl mx-auto px-4 py-24 border-t border-foreground/5" ref={containerRef}>
