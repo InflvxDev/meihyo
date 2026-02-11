@@ -2,25 +2,35 @@ import { defineMiddleware } from "astro:middleware";
 import { createClient } from "./lib/supabase";
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  // Inicializamos el cliente de Supabase
+  const { pathname } = context.url;
+
+  // 1. Omitir archivos estáticos y assets de Astro para mejorar rendimiento
+  if (
+    pathname.startsWith("/_astro") || 
+    pathname.includes(".") || 
+    pathname.startsWith("/api")
+  ) {
+    return next();
+  }
+
+  // Inicializamos el cliente
   const supabase = createClient(context);
 
-  // Obtenemos el usuario autenticado
+  // 2. Obtener el usuario y, MUY IMPORTANTE, refrescar la sesión si es necesario
+  // Esto asegura que las cookies se mantengan actualizadas
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Guardamos supabase y user en locals para acceder desde cualquier página (.astro)
   context.locals.supabase = supabase;
   context.locals.user = user;
 
-  const { pathname } = context.url;
+  // 3. Lógica de redirección optimizada
+  const isDashboardRoute = pathname.startsWith("/dashboard");
+  const isAuthRoute = ["/login", "/signup"].includes(pathname);
 
-  // 1. Proteger rutas privadas (dashboard)
-  if (pathname.startsWith("/dashboard") && !user) {
+  if (isDashboardRoute && !user) {
     return context.redirect("/login");
   }
 
-  // 2. Redirigir si ya está logeado e intenta ir a auth
-  const isAuthRoute = pathname === "/login" || pathname === "/signup";
   if (isAuthRoute && user) {
     return context.redirect("/dashboard");
   }
