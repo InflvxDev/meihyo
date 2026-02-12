@@ -1,5 +1,6 @@
 import { MdDashboard } from 'react-icons/md';
 import UserMenu from './UserMenu';
+import GamesSidebar from '../sidebar/GamesSidebar';
 
 interface UserNavbarProps {
   userEmail?: string;
@@ -8,7 +9,8 @@ interface UserNavbarProps {
 
 const UserNavbar = ({ userEmail, route }: UserNavbarProps) => {
   return (
-    <nav className="relative bg-background border-b border-foreground/10">
+    <>
+     <nav className="relative bg-background border-b border-foreground/10">
       <div className="flex items-center justify-between w-full px-0 py-0">
         <div className="flex items-center gap-2">
           <a
@@ -36,6 +38,8 @@ const UserNavbar = ({ userEmail, route }: UserNavbarProps) => {
         </div>
       </div>
     </nav>
+    <GamesSidebar />
+    </>
   );
 };
 
