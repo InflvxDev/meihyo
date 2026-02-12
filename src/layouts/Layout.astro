@@ -20,22 +20,22 @@ const { title = "Meihyo" } = Astro.props;
     <title>{title}</title>
 
     <script is:inline>
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
+      const applyTheme = () => {
+        const theme = localStorage.getItem("theme") || "system";
+        if (theme === "light") {
+          document.documentElement.classList.add("light");
+          document.documentElement.classList.remove("dark");
+        } else if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+          document.documentElement.classList.remove("light");
         }
-        return "system";
-      })();
+      };
 
-      if (theme === "light") {
-        document.documentElement.classList.add("light");
-      } else if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-      }
+      // Ejecutar al cargar
+      applyTheme();
+
+      // Ejecutar cada vez que Astro cambie de página
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
   </head>
   <body>
