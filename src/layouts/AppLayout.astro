@@ -1,6 +1,7 @@
 ---
 import Layout from "./Layout.astro";
 import UserNavbar from "../components/shared/navbar/UserNavbar";
+import GamesSidebar from "../components/shared/sidebar/GamesSidebar";
 
 interface Props {
   title?: string;
@@ -14,7 +15,8 @@ const { user } = Astro.locals;
 <Layout title={title}>
   <div class="min-h-screen bg-background text-foreground">
     <UserNavbar client:load userEmail={user?.email ?? ""} route={route ?? ""} />
-    <main>
+    <GamesSidebar client:load />
+    <main class="pl-20">
       <slot />
     </main>
   </div>
