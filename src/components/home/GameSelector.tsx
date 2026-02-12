@@ -50,8 +50,8 @@ export default function GameSelector() {
                 hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)]
                 ${
                   hoveredGame === game.name
-                    ? 'border-primary bg-primary/5 -translate-y-1'
-                    : 'border-foreground/10 bg-foreground/2 hover:border-foreground/20'
+                    ? 'border-primary bg-primary/40 -translate-y-1'
+                    : 'border-foreground/10 bg-foreground/40 hover:border-foreground/20'
                 }
               `}
             >

@@ -1,5 +1,6 @@
 import { useUserMenu } from "../../../hooks/shared/navbar/useUserMenu";
-import { MdAccountCircle, MdAutorenew, MdSettings } from "react-icons/md";
+import { useThemeSelector } from "../../../hooks/shared/navbar/useThemeSelector";
+import { MdAccountCircle, MdAutorenew, MdSettings, MdDarkMode, MdLightMode, MdSettingsBrightness } from "react-icons/md";
 
 interface UserMenuProps {
   userEmail?: string;
@@ -7,6 +8,12 @@ interface UserMenuProps {
 
 const UserMenu = ({ userEmail }: UserMenuProps) => {
   const { isOpen, setIsOpen, menuRef, handleSignOut } = useUserMenu();
+  const { theme, handleThemeChange } = useThemeSelector();
+
+  const handleThemeSelect = (newTheme: 'dark' | 'light' | 'system') => {
+    handleThemeChange(newTheme);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative" ref={menuRef}>
@@ -46,6 +53,45 @@ const UserMenu = ({ userEmail }: UserMenuProps) => {
           <MdAutorenew />
           Mi Progreso
         </a>
+        <div className="my-1 border-t border-foreground/10"></div>
+        <div className="px-2 py-2">
+          <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider px-2 mb-2">Tema</p>
+          <div className="flex flex-col gap-1.5">
+            <button
+              onClick={() => handleThemeSelect('dark')}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded text-xs font-medium transition-all ${
+                theme === 'dark'
+                  ? 'text-primary'
+                  : 'text-foreground/60 hover:bg-foreground/10'
+              }`}
+            >
+              <MdDarkMode className="w-4 h-4" />
+              Oscuro
+            </button>
+            <button
+              onClick={() => handleThemeSelect('light')}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded text-xs font-medium transition-all ${
+                theme === 'light'
+                  ? 'text-primary'
+                  : 'text-foreground/60 hover:bg-foreground/10'
+              }`}
+            >
+              <MdLightMode className="w-4 h-4" />
+              Claro
+            </button>
+            <button
+              onClick={() => handleThemeSelect('system')}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded text-xs font-medium transition-all ${
+                theme === 'system'
+                  ? 'text-primary'
+                  : 'text-foreground/60 hover:bg-foreground/10'
+              }`}
+            >
+              <MdSettingsBrightness className="w-4 h-4" />
+              Sistema
+            </button>
+          </div>
+        </div>
         <div className="my-1 border-t border-foreground/10"></div>
         <button
           onClick={handleSignOut}

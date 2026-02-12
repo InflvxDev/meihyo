@@ -1,24 +1,49 @@
 @import "tailwindcss";
 @import 'tailwind-animations';
 
-@theme {
-  --color-background: #222c3c;
-  --color-foreground: #fbf9ff;
-  --color-primary: #0088fc;
-  --color-secondary: #a7b0c9;
-}
-
 @layer base {
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #2a3547 inset !important;
-    -webkit-text-fill-color: #a7b0c9 !important;
-    transition: background-color 5000s ease-in-out 0s;
+  :root {
+    /* Tema oscuro por defecto (según tu código) */
+    --background: #222c3c;
+    --foreground: #fbf9ff;
+    --primary: #0088fc;
+    --secondary: #a7b0c9;
+    color-scheme: dark;
   }
 
-  input {
-    outline: none;
+  /* Si el usuario elige explícitamente "light" */
+  :root.light {
+    --background: #fbf9ff;
+    --foreground: #222c3c;
+    --primary: #0088fc;
+    --secondary: #5a5f7d;
+    color-scheme: light;
+  }
+
+  /* Si el usuario elige "system" y el sistema es claro */
+  @media (prefers-color-scheme: light) {
+    :root:not(.dark):not(.light) {
+      --background: #fbf9ff;
+      --foreground: #222c3c;
+      --primary: #0088fc;
+      --secondary: #5a5f7d;
+      color-scheme: light;
+    }
+  }
+}
+
+@theme {
+  /* Mapeamos los tokens de Tailwind a nuestras variables dinámicas */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+}
+
+/* Tus estilos de Autofill (simplificados) */
+@layer base {
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px var(--background) inset !important;
+    -webkit-text-fill-color: var(--secondary) !important;
   }
 }

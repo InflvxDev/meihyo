@@ -21,6 +21,11 @@ export const useUserMenu = () => {
         method: 'POST',
       });
       if (response.ok) {
+        // Restablecer tema a sistema
+        localStorage.removeItem('theme');
+        document.documentElement.classList.remove('dark', 'light');
+        document.documentElement.style.colorScheme = '';
+        
         window.location.href = '/login';
       } else {
         console.error('Error al cerrar sesión');
