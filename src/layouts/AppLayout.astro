@@ -4,15 +4,16 @@ import UserNavbar from "../components/shared/navbar/UserNavbar";
 
 interface Props {
   title?: string;
+  route?: string;
 }
 
-const { title } = Astro.props;
+const { title, route } = Astro.props;
 const { user } = Astro.locals;
 ---
 
 <Layout title={title}>
   <div class="min-h-screen bg-background text-foreground">
-    <UserNavbar client:load userEmail={user?.email ?? ""} />
+    <UserNavbar client:load userEmail={user?.email ?? ""} route={route ?? ""} />
     <main>
       <slot />
     </main>
