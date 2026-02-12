@@ -1,15 +1,5 @@
 import { useGameSelector } from "../../hooks/home/useGameSelector";
-
-interface Game {
-  id: string;
-  name: string;
-  logo: string;
-}
-
-const GAMES: Game[] = [
-  { id: "valorant", name: "Valorant", logo: "/logos/valorant.webp" },
-  { id: "lol", name: "League of Legends", logo: "/logos/lol.webp" },
-];
+import { GAMES } from "../../lib/const/Games";
 
 export default function GameSelector() {
   const { hoveredGame, setHoveredGame, containerRef } = useGameSelector();
@@ -50,17 +40,13 @@ export default function GameSelector() {
                 hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)]
                 ${
                   hoveredGame === game.name
-                    ? 'border-primary bg-primary/40 -translate-y-1'
-                    : 'border-foreground/10 bg-foreground/40 hover:border-foreground/20'
+                    ? 'border-primary bg-primary/10 -translate-y-1'
+                    : 'border-foreground/10 bg-foreground/10 hover:border-foreground/20'
                 }
               `}
             >
               <div className="relative z-10 flex items-center justify-center">
-                <img
-                  src={game.logo}
-                  alt={game.name}
-                  className="h-8 md:h-10 object-contain"
-                />
+                <game.icon className="h-8 md:h-10 w-8 md:w-10 text-foreground" />
               </div>
               <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
