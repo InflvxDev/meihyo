@@ -49,7 +49,7 @@ export function createClient({
           cookies.set(name, value, {
             ...options,
             httpOnly: options?.httpOnly ?? true,
-            secure: options?.secure ?? true,
+            secure: options?.secure ?? import.meta.env.PROD,
             sameSite: options?.sameSite ?? "lax",
             path: options?.path ?? "/",
           });
