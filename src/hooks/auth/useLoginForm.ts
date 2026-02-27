@@ -24,8 +24,8 @@ export const useLoginForm = () => {
 
       const data: LoginResponse = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Error en el inicio de sesión');
+      if (!data.success) {
+        throw new Error(data.error);
       }
       window.location.href = '/dashboard';
     } catch (err) {

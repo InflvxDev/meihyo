@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     if (!email || !password) {
       return new Response(
-        JSON.stringify({ error: "Email y contraseña son requeridos" }),
+        JSON.stringify({ success: false, error: "Email y contraseña son requeridos" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
-        JSON.stringify({ error: "Formato de email inválido" }),
+        JSON.stringify({ success: false, error: "Formato de email inválido" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -52,7 +52,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       }
 
       return new Response(
-        JSON.stringify({ error: errorMessage }),
+        JSON.stringify({ success: false, error: errorMessage }),
         { status: statusCode, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -60,6 +60,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     // 5. Éxito - usuario autenticado
     return new Response(
       JSON.stringify({
+        success: true,
         mensaje: "Inicio de sesión exitoso",
         usuario: {
           id: data.user?.id,
@@ -77,6 +78,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     console.error("Error en inicio de sesión:", error);
     return new Response(
       JSON.stringify({ 
+        success: false,
         error: "Ocurrió un error inesperado durante el inicio de sesión" 
       }),
       { 

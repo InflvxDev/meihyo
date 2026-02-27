@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     if (!email || !password) {
       return new Response(
-        JSON.stringify({ error: "Email y contraseña son requeridos" }),
+        JSON.stringify({ success: false, error: "Email y contraseña son requeridos" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
-        JSON.stringify({ error: "Formato de email inválido" }),
+        JSON.stringify({ success: false, error: "Formato de email inválido" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -27,6 +27,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     if (password.length < 8) {
       return new Response(
         JSON.stringify({ 
+          success: false,
           error: "La contraseña debe tener al menos 8 caracteres" 
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
@@ -46,6 +47,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       if (error.message === "User already registered") {
         return new Response(
           JSON.stringify({ 
+            success: false,
             error: "Este email ya está registrado. Por favor inicia sesión." 
           }),
           { status: 409, headers: { "Content-Type": "application/json" } }
@@ -53,7 +55,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       }
       
       return new Response(
-        JSON.stringify({ error: error.message }),
+        JSON.stringify({ success: false, error: error.message }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -61,6 +63,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     // 6. Éxito - usuario registrado y automáticamente logueado
     return new Response(
       JSON.stringify({
+        success: true,
         mensaje: "Usuario registrado exitosamente",
         usuario: {
           id: data.user?.id,
@@ -77,6 +80,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     console.error("Error en registro:", error);
     return new Response(
       JSON.stringify({ 
+        success: false,
         error: "Ocurrió un error inesperado durante el registro" 
       }),
       { 

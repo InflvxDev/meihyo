@@ -37,10 +37,10 @@ export const useSignUpForm = () => {
 
       const data: SignUpResponse = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Error en el registro');
+      if (!data.success) {
+        throw new Error(data.error);
       }
-      
+
       // Redirigir al dashboard después de registro exitoso
       window.location.href = '/dashboard';
     } catch (err) {
