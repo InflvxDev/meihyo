@@ -1,0 +1,168 @@
+---
+import TypingText from "./TypingText";
+
+const TYPING_TEXTS = [
+  "Hoy jugué con poco sueño y se notó en mi reacción...",
+  "Mi puntería estuvo fuera en mirage, necesito practicar mid...",
+  "Estuve tilteado después de perder por errores míos, debo descansar más...",
+  "Buena lectura del equipo rival, hoy sí estuvo limpio...",
+  "Me faltó vision control en bot, perdimos el drake por eso...",
+  "Mi Jett estuvo on point hoy, las entradas en Ascent funcionaron perfecto...",
+  "Necesito mejorar mi posicionamiento como ADC en late game...",
+  "El smoke de Omen en B site de Bind me salvó 3 rounds seguidos...",
+  "Feedeé mucho en early, debo respetar más los powerspikes...",
+  "Clutch 1v4 en Pearl, la Vandal me respondió increíble...",
+  "Mi macro game está mejorando, hoy rotamos perfecto al Baron...",
+  "Falló el spike plant, me apuré demasiado sin checkear esquinas...",
+];
+---
+
+<div
+  class="grid grid-cols-3 auto-rows-max md:grid-rows-6 gap-4 md:gap-5 w-full mt-40 px-0"
+>
+  <!-- Performance Tracker -->
+  <div
+    class="col-start-1 row-start-1 col-span-3 md:col-start-1 md:row-start-1 md:col-span-2 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-end items-start text-left group max-h-40 md:max-h-none"
+  >
+    <span class="text-primary text-xs font-bold tracking-widest uppercase mb-2">
+      Performance Tracker
+    </span>
+    <h3 class="text-2xl md:text-3xl font-bold mb-2 group-hover:text-primary transition-colors">
+      Visualiza tu evolución
+    </h3>
+    <p class="text-secondary text-sm md:text-base max-w-md leading-relaxed">
+      Un panel diseñado para identificar rachas de victorias, picos de rendimiento técnico y
+      áreas de mejora mediante gráficas dinámicas de progreso mensual.
+    </p>
+  </div>
+
+  <!-- Métricas de Éxito -->
+  <div
+    class="col-start-1 row-start-2 col-span-3 md:col-start-1 md:row-start-3 md:col-span-1 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center items-center text-center max-h-40 md:max-h-none"
+  >
+    <div class="text-primary mb-4 p-3 bg-primary/10 rounded-full">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-8 h-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+        ></path>
+      </svg>
+    </div>
+    <h3 class="font-bold text-lg mb-1">Métricas de Éxito</h3>
+    <p class="text-xs text-secondary leading-snug">
+      Winrate, KDA y ADR analizados por mapa y rol para optimizar tu estilo.
+    </p>
+  </div>
+
+  <!-- Bitácora de Notas -->
+  <div
+    class="col-start-1 row-start-3 col-span-3 md:col-start-2 md:row-start-3 md:col-span-1 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center items-start text-left group max-h-40 md:max-h-none"
+  >
+    <h3 class="text-lg font-bold group-hover:text-primary transition-colors">
+      Bitácora de Notas
+    </h3>
+    <p class="text-xs text-secondary mt-2 font-normal leading-relaxed italic">
+      "<TypingText
+        client:load
+        texts={TYPING_TEXTS}
+        speed={30}
+        delayBetweenTexts={2000}
+      />"
+    </p>
+    <p class="text-[10px] text-foreground/40 mt-4 uppercase tracking-tighter">
+      Etiqueta tus emociones y detecta el 'Tilt'.
+    </p>
+  </div>
+
+  <!-- Historial -->
+  <div
+    class="col-start-1 row-start-4 col-span-3 md:col-start-3 md:row-start-1 md:col-span-1 md:row-span-3 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-8 flex flex-col justify-start overflow-hidden"
+  >
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold">Historial</h3>
+      <span
+        class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full animate-pulse uppercase font-bold"
+        >Live</span
+      >
+    </div>
+    <div class="space-y-3">
+      {
+        [1, 2, 3, 4, 5].map((i) => (
+          <div
+            class={`group h-12 w-full bg-foreground/5 rounded border border-foreground/10 flex items-center px-3 justify-between hover:bg-foreground/10 transition-all cursor-default timeline-view ${i % 2 === 0 ? "animate-fade-in-left" : "animate-fade-in-right"}`}
+          >
+            <div
+              class={`w-2 h-2 rounded-full ${i % 2 === 0 ? "bg-primary" : "bg-secondary"}`}
+            />
+            <div class="flex flex-col gap-1 items-end">
+              <div class="h-1.5 w-16 bg-foreground/20 rounded" />
+              <div class="h-1 w-8 bg-foreground/10 rounded" />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Metas Inteligentes -->
+  <div
+    class="col-start-1 row-start-5 col-span-3 md:col-start-1 md:row-start-5 md:col-span-2 md:row-span-2 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col justify-center text-left max-h-40 md:max-h-none"
+  >
+    <div class="flex items-center gap-4 mb-4">
+      <h3 class="text-2xl font-bold">Metas Inteligentes</h3>
+      <div class="h-px grow bg-foreground/10"></div>
+    </div>
+    <p class="text-secondary text-sm md:text-base mb-6 max-w-lg">
+      Configura objetivos basados en datos reales. Meihyo te alertará si te desvías de tu plan
+      de entrenamiento semanal.
+    </p>
+    <div class="flex gap-2">
+      <span class="text-[10px] border border-foreground/20 px-2 py-1 rounded text-secondary italic"
+        >#Consistency</span
+      >
+      <span class="text-[10px] border border-foreground/20 px-2 py-1 rounded text-secondary italic"
+        >#AimLab</span
+      >
+    </div>
+  </div>
+
+  <!-- Open Source / Transparente -->
+  <div
+    class="col-start-1 row-start-6 col-span-3 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-3 bg-foreground/5 border border-foreground/20 rounded-md p-3 md:p-10 flex flex-col items-center justify-center text-center group"
+  >
+    <div class="mb-4 opacity-40 group-hover:opacity-100 transition-opacity">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 fill-foreground"
+        viewBox="0 0 24 24"
+        ><path
+          d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.658 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.803 5.625-5.475 5.92.42.372.79 1.102.79 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.63-5.37-12-12-12z"
+        ></path></svg
+      >
+    </div>
+    <h3 class="font-bold text-lg mb-2">Transparente</h3>
+    <p class="text-xs text-secondary mb-6 leading-relaxed">
+      Sin APIs privadas ni tracking oculto. Tu progreso es solo tuyo.
+    </p>
+    <a
+      href="https://github.com/InflvxDev/meihyo"
+      target="_blank"
+      class="text-primary text-[10px] font-bold border border-primary/30 px-4 py-2 rounded-full hover:bg-primary/10 transition-all uppercase tracking-widest"
+      >Contribuir en GitHub</a
+    >
+  </div>
+</div>
+
+<style>
+  .grid > div {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
