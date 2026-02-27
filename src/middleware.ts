@@ -24,10 +24,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   context.locals.user = user;
 
   // 3. Lógica de redirección optimizada
-  const isDashboardRoute = pathname.startsWith("/dashboard");
+  const isProtectedRoute = pathname.startsWith("/dashboard") || pathname.startsWith("/game");
   const isAuthRoute = ["/login", "/signup"].includes(pathname);
 
-  if (isDashboardRoute && !user) {
+  if (isProtectedRoute && !user) {
     return context.redirect("/login");
   }
 
