@@ -1,9 +1,14 @@
 import type { APIRoute } from "astro";
 import { createClient } from "../../../lib/supabase";
+import { requireUser } from "../../../lib/auth";
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     const supabase = createClient({ request, cookies });
+
+    const { errorResponse } = await requireUser(supabase);
+    if (errorResponse) return errorResponse;
+
     const { error } = await supabase.auth.signOut();
 
     if (error) {
