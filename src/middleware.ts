@@ -1,5 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 import { createClient } from "./lib/supabase";
+import { protectedRoutes } from "./lib/protectedRoutes";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
@@ -24,7 +25,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
   context.locals.user = user;
 
   // 3. Lógica de redirección optimizada
-  const isProtectedRoute = pathname.startsWith("/dashboard") || pathname.startsWith("/game");
+  // Consultamos la lista centralizada de rutas protegidas para mantener
+  // el middleware flexible y fácil de extender en el futuro.
+  const isProtectedRoute = protectedRoutes.some((prefix) =>
+    pathname.startsWith(prefix)
+  );
   const isAuthRoute = ["/login", "/signup"].includes(pathname);
 
   if (isProtectedRoute && !user) {
