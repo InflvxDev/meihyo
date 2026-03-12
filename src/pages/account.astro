@@ -1,0 +1,27 @@
+---
+import AppLayout from "../layouts/AppLayout.astro";
+import AccountPreferences from "../components/account/AccountPreferences";
+
+const { user } = Astro.locals;
+const userEmail = user?.email ?? "";
+const initialDisplayName = (user?.user_metadata?.display_name as string | undefined) ?? "";
+---
+
+<AppLayout title="Preferencias | Meihyo" route="Preferencias">
+  <div class="min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex flex-col items-center">
+    <!-- Static header -->
+    <div class="mb-8 w-full max-w-3xl">
+      <h1 class="text-foreground text-2xl sm:text-3xl font-bold mb-2">Preferencias</h1>
+      <p class="text-secondary/70 text-sm sm:text-base">
+        Administre el perfil de su cuenta, las conexiones y la experiencia del panel.
+      </p>
+    </div>
+
+    <!-- React island -->
+    <AccountPreferences
+      client:load
+      userEmail={userEmail}
+      initialDisplayName={initialDisplayName}
+    />
+  </div>
+</AppLayout>
