@@ -19,13 +19,13 @@ export default function AppearanceCard({ theme, mounted, handleThemeChange }: Ap
   return (
     <SectionCard>
       <h2 className="text-foreground font-semibold text-base mb-1">Apariencia</h2>
-      <p className="text-secondary/70 text-sm mb-5">
+      <p className="text-secondary/90 text-sm mb-5">
         Elija cómo se ve y se comporta Meihyo en el panel.
       </p>
 
       <div>
-        <p className="text-foreground/80 text-sm font-medium mb-1">Modo tema</p>
-        <p className="text-secondary/60 text-xs mb-4">
+        <p className="text-foreground/90 text-sm font-medium mb-1">Modo tema</p>
+        <p className="text-secondary/90 text-xs mb-4">
           Elige cómo te parece Meihyo. Selecciona un solo tema o sincronízalo con tu sistema.
         </p>
 
@@ -49,7 +49,7 @@ export default function AppearanceCard({ theme, mounted, handleThemeChange }: Ap
                   </div>
                   <span
                     className={`text-xs font-medium transition-colors ${
-                      isActive ? "text-primary" : "text-secondary/70"
+                      isActive ? "text-primary" : "text-secondary/90"
                     }`}
                   >
                     {label}

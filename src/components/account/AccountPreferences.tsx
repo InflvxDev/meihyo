@@ -1,4 +1,6 @@
 import { useAccountPreferences } from "../../hooks/account/useAccountPreferences";
+import { useToast } from "../../hooks/shared/useToast";
+import ToastContainer from "../shared/Toast";
 import ProfileInfoCard from "./ProfileInfoCard";
 import AccountIdentitiesCard from "./AccountIdentitiesCard";
 import AppearanceCard from "./AppearanceCard";
@@ -11,12 +13,12 @@ interface AccountPreferencesProps {
 }
 
 export default function AccountPreferences({ userEmail, initialDisplayName }: AccountPreferencesProps) {
+  const { toasts, addToast, dismiss } = useToast();
+
   const {
     email,
     displayName,
     profileLoading,
-    profileError,
-    profileSuccess,
     hasProfileChanges,
     handleDisplayNameChange,
     handleProfileSave,
@@ -25,8 +27,6 @@ export default function AccountPreferences({ userEmail, initialDisplayName }: Ac
     setShowPasswordModal,
     passwordForm,
     passwordLoading,
-    passwordError,
-    passwordSuccess,
     showPasswords,
     handlePasswordFormChange,
     handlePasswordSubmit,
@@ -37,14 +37,12 @@ export default function AccountPreferences({ userEmail, initialDisplayName }: Ac
     newEmail,
     setNewEmail,
     emailLoading,
-    emailError,
-    emailSuccess,
     handleEmailSubmit,
     handleCloseEmailModal,
     theme,
     handleThemeChange,
     mounted,
-  } = useAccountPreferences({ initialEmail: userEmail, initialDisplayName });
+  } = useAccountPreferences({ initialEmail: userEmail, initialDisplayName, addToast });
 
   return (
     <>
@@ -53,8 +51,6 @@ export default function AccountPreferences({ userEmail, initialDisplayName }: Ac
           email={email}
           displayName={displayName}
           profileLoading={profileLoading}
-          profileError={profileError}
-          profileSuccess={profileSuccess}
           hasProfileChanges={hasProfileChanges}
           handleDisplayNameChange={handleDisplayNameChange}
           handleProfileSave={handleProfileSave}
@@ -79,8 +75,6 @@ export default function AccountPreferences({ userEmail, initialDisplayName }: Ac
         onClose={handleClosePasswordModal}
         passwordForm={passwordForm}
         passwordLoading={passwordLoading}
-        passwordError={passwordError}
-        passwordSuccess={passwordSuccess}
         showPasswords={showPasswords}
         handlePasswordFormChange={handlePasswordFormChange}
         handlePasswordSubmit={handlePasswordSubmit}
@@ -94,10 +88,10 @@ export default function AccountPreferences({ userEmail, initialDisplayName }: Ac
         newEmail={newEmail}
         setNewEmail={setNewEmail}
         emailLoading={emailLoading}
-        emailError={emailError}
-        emailSuccess={emailSuccess}
         handleEmailSubmit={handleEmailSubmit}
       />
+
+      <ToastContainer toasts={toasts} onDismiss={dismiss} />
     </>
   );
 }

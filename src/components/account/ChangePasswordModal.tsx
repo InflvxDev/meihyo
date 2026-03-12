@@ -18,8 +18,6 @@ interface ChangePasswordModalProps {
   onClose: () => void;
   passwordForm: PasswordForm;
   passwordLoading: boolean;
-  passwordError: string | null;
-  passwordSuccess: string | null;
   showPasswords: ShowPasswords;
   handlePasswordFormChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handlePasswordSubmit: (e: React.FormEvent) => void;
@@ -31,8 +29,6 @@ export default function ChangePasswordModal({
   onClose,
   passwordForm,
   passwordLoading,
-  passwordError,
-  passwordSuccess,
   showPasswords,
   handlePasswordFormChange,
   handlePasswordSubmit,
@@ -66,9 +62,6 @@ export default function ChangePasswordModal({
           onChange={handlePasswordFormChange}
           onToggle={() => togglePasswordVisibility("confirm")}
         />
-
-        {passwordError && <p className="text-red-400 text-sm">{passwordError}</p>}
-        {passwordSuccess && <p className="text-green-400 text-sm">{passwordSuccess}</p>}
 
         <div className="flex justify-end gap-3 mt-2">
           <button

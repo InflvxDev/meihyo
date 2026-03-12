@@ -7,8 +7,6 @@ interface ChangeEmailModalProps {
   newEmail: string;
   setNewEmail: (value: string) => void;
   emailLoading: boolean;
-  emailError: string | null;
-  emailSuccess: string | null;
   handleEmailSubmit: (e: React.FormEvent) => void;
 }
 
@@ -19,8 +17,6 @@ export default function ChangeEmailModal({
   newEmail,
   setNewEmail,
   emailLoading,
-  emailError,
-  emailSuccess,
   handleEmailSubmit,
 }: ChangeEmailModalProps) {
   return (
@@ -56,9 +52,6 @@ export default function ChangeEmailModal({
             className="w-full px-4 py-2.5 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary text-sm focus:outline-none focus:border-primary/50 focus:bg-secondary/15 transition-all"
           />
         </div>
-
-        {emailError && <p className="text-red-400 text-sm">{emailError}</p>}
-        {emailSuccess && <p className="text-green-400 text-sm">{emailSuccess}</p>}
 
         <div className="flex justify-end gap-3 mt-2">
           <button

@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { useThemeSelector } from "../shared/navbar/useThemeSelector";
+import type { ToastType } from "../shared/useToast";
 
 interface UseAccountPreferencesProps {
   initialEmail: string;
   initialDisplayName: string;
+  addToast: (type: ToastType, message: string) => void;
 }
 
 export const useAccountPreferences = ({
   initialEmail,
   initialDisplayName,
+  addToast,
 }: UseAccountPreferencesProps) => {
   // ── Profile ─────────────────────────────────────────────────────────────
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [savedDisplayName, setSavedDisplayName] = useState(initialDisplayName);
   const [profileLoading, setProfileLoading] = useState(false);
-  const [profileError, setProfileError] = useState<string | null>(null);
-  const [profileSuccess, setProfileSuccess] = useState<string | null>(null);
 
   // ── Password modal ───────────────────────────────────────────────────────
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -25,8 +26,6 @@ export const useAccountPreferences = ({
     confirmPassword: "",
   });
   const [passwordLoading, setPasswordLoading] = useState(false);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
-  const [passwordSuccess, setPasswordSuccess] = useState<string | null>(null);
   const [showPasswords, setShowPasswords] = useState({
     current: false,
     new: false,
@@ -37,8 +36,6 @@ export const useAccountPreferences = ({
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [emailLoading, setEmailLoading] = useState(false);
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const [emailSuccess, setEmailSuccess] = useState<string | null>(null);
 
   // ── Theme ────────────────────────────────────────────────────────────────
   const { theme, handleThemeChange, mounted } = useThemeSelector();
@@ -46,18 +43,14 @@ export const useAccountPreferences = ({
   // ── Profile handlers ─────────────────────────────────────────────────────
   const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDisplayName(e.target.value);
-    setProfileError(null);
-    setProfileSuccess(null);
   };
 
   const handleProfileSave = async () => {
     if (!displayName.trim()) {
-      setProfileError("El nombre de usuario no puede estar vacío");
+      addToast("error", "El nombre de usuario no puede estar vacío");
       return;
     }
     setProfileLoading(true);
-    setProfileError(null);
-    setProfileSuccess(null);
     try {
       const res = await fetch("/api/account/updateDisplayName", {
         method: "POST",
@@ -67,13 +60,12 @@ export const useAccountPreferences = ({
       const data = await res.json();
       if (data.success) {
         setSavedDisplayName(displayName.trim());
-        setProfileSuccess("Nombre actualizado correctamente");
-        setTimeout(() => setProfileSuccess(null), 3000);
+        addToast("success", "Nombre actualizado correctamente");
       } else {
-        setProfileError(data.error ?? "Error al actualizar el nombre");
+        addToast("error", data.error ?? "Error al actualizar el nombre");
       }
     } catch {
-      setProfileError("Error de conexión");
+      addToast("error", "Error de conexión");
     } finally {
       setProfileLoading(false);
     }
@@ -81,29 +73,24 @@ export const useAccountPreferences = ({
 
   const handleProfileCancel = () => {
     setDisplayName(savedDisplayName);
-    setProfileError(null);
-    setProfileSuccess(null);
   };
 
   // ── Password handlers ─────────────────────────────────────────────────────
   const handlePasswordFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    setPasswordError(null);
-    setPasswordSuccess(null);
   };
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      setPasswordError("Las contraseñas nuevas no coinciden");
+      addToast("error", "Las contraseñas nuevas no coinciden");
       return;
     }
     if (passwordForm.newPassword.length < 8) {
-      setPasswordError("La contraseña debe tener al menos 8 caracteres");
+      addToast("error", "La contraseña debe tener al menos 8 caracteres");
       return;
     }
     setPasswordLoading(true);
-    setPasswordError(null);
     try {
       const res = await fetch("/api/account/updatePassword", {
         method: "POST",
@@ -115,17 +102,14 @@ export const useAccountPreferences = ({
       });
       const data = await res.json();
       if (data.success) {
-        setPasswordSuccess(data.message ?? "Contraseña actualizada");
+        addToast("success", data.message ?? "Contraseña actualizada correctamente");
         setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-        setTimeout(() => {
-          setShowPasswordModal(false);
-          setPasswordSuccess(null);
-        }, 2000);
+        setShowPasswordModal(false);
       } else {
-        setPasswordError(data.error ?? "Error al actualizar la contraseña");
+        addToast("error", data.error ?? "Error al actualizar la contraseña");
       }
     } catch {
-      setPasswordError("Error de conexión");
+      addToast("error", "Error de conexión");
     } finally {
       setPasswordLoading(false);
     }
@@ -134,8 +118,6 @@ export const useAccountPreferences = ({
   const handleClosePasswordModal = () => {
     setShowPasswordModal(false);
     setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-    setPasswordError(null);
-    setPasswordSuccess(null);
     setShowPasswords({ current: false, new: false, confirm: false });
   };
 
@@ -148,11 +130,10 @@ export const useAccountPreferences = ({
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(newEmail)) {
-      setEmailError("Formato de email inválido");
+      addToast("error", "Formato de email inválido");
       return;
     }
     setEmailLoading(true);
-    setEmailError(null);
     try {
       const res = await fetch("/api/account/updateEmail", {
         method: "POST",
@@ -161,17 +142,14 @@ export const useAccountPreferences = ({
       });
       const data = await res.json();
       if (data.success) {
-        setEmailSuccess(data.message ?? "Correo actualizado");
-        setTimeout(() => {
-          setShowEmailModal(false);
-          setEmailSuccess(null);
-          setNewEmail("");
-        }, 3500);
+        addToast("success", data.message ?? "Revisa tu bandeja de entrada para confirmar el cambio");
+        setShowEmailModal(false);
+        setNewEmail("");
       } else {
-        setEmailError(data.error ?? "Error al actualizar el correo");
+        addToast("error", data.error ?? "Error al actualizar el correo");
       }
     } catch {
-      setEmailError("Error de conexión");
+      addToast("error", "Error de conexión");
     } finally {
       setEmailLoading(false);
     }
@@ -180,8 +158,6 @@ export const useAccountPreferences = ({
   const handleCloseEmailModal = () => {
     setShowEmailModal(false);
     setNewEmail("");
-    setEmailError(null);
-    setEmailSuccess(null);
   };
 
   return {
@@ -190,8 +166,6 @@ export const useAccountPreferences = ({
     // Profile
     displayName,
     profileLoading,
-    profileError,
-    profileSuccess,
     hasProfileChanges: displayName !== savedDisplayName,
     handleDisplayNameChange,
     handleProfileSave,
@@ -201,8 +175,6 @@ export const useAccountPreferences = ({
     setShowPasswordModal,
     passwordForm,
     passwordLoading,
-    passwordError,
-    passwordSuccess,
     showPasswords,
     handlePasswordFormChange,
     handlePasswordSubmit,
@@ -214,8 +186,6 @@ export const useAccountPreferences = ({
     newEmail,
     setNewEmail,
     emailLoading,
-    emailError,
-    emailSuccess,
     handleEmailSubmit,
     handleCloseEmailModal,
     // Theme

@@ -17,7 +17,7 @@ export default function AccountIdentitiesCard({
       <h2 className="text-foreground font-semibold text-base mb-1">
         Identidades de cuenta
       </h2>
-      <p className="text-secondary/70 text-sm mb-5">
+      <p className="text-secondary/90 text-sm mb-5">
         Gestiona y actualiza los datos de tu cuenta.
       </p>
 
