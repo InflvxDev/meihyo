@@ -1,11 +1,12 @@
 import { useMemo, useRef, useState } from "react";
-import { MdAdd, MdArrowBack } from "react-icons/md";
+import { MdAdd, MdArrowBack, MdGpsFixed } from "react-icons/md";
 import { useDeathmatchTracker } from "../../hooks/valorant/useDeathmatchTracker";
 import ToastContainer from "../shared/Toast";
 import { kdDisplay, kdClass } from "./deathmatch/utils";
 import { SkeletonRow } from "./deathmatch/SkeletonRow";
 import { ReadRow } from "./deathmatch/ReadRow";
 import { EditRow } from "./deathmatch/EditRow";
+import { StatsBar } from "./deathmatch/StatsBar";
 
 export default function DeathmatchTracker() {
   const {
@@ -38,12 +39,21 @@ export default function DeathmatchTracker() {
   const stats = useMemo(() => {
     const totalK = records.reduce((s, r) => s + (r.asesinatos ?? 0), 0);
     const totalD = records.reduce((s, r) => s + (r.muertes ?? 0), 0);
+
+    // most used weapon
+    const armaCounts: Record<string, number> = {};
+    records.forEach(r => {
+      if (r.arma) armaCounts[r.arma] = (armaCounts[r.arma] ?? 0) + 1;
+    });
+    const topArma = Object.entries(armaCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+
     return {
       total: records.length,
       totalK,
       totalD,
       kd: kdDisplay(totalK, totalD),
       kdCls: kdClass(totalK, totalD),
+      topArma,
     };
   }, [records]);
 
@@ -57,60 +67,80 @@ export default function DeathmatchTracker() {
 
   return (
     <div className="p-4 sm:p-6 w-full min-h-screen">
-      {/* ── back button ─────────────────────────────────────────────── */}
-      <div className="mb-4">
-        <a
-          href="/game/valorant"
-          className="inline-flex items-center gap-1.5 text-secondary/70 hover:text-foreground text-sm transition-colors"
-        >
-          <MdArrowBack size={18} className="shrink-0" />
-          <span className="hidden sm:inline">Valorant</span>
-        </a>
+      {/* ── HERO BANNER ─────────────────────────────────────────────── */}
+      <div className="relative overflow-hidden rounded-xl border border-foreground/10 bg-secondary/5 mb-5">
+        {/* decorative top glow line */}
+        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/55 to-transparent" />
+        {/* decorative bg blob */}
+        <div className="absolute -top-10 left-1/3 w-96 h-44 bg-primary/10 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute -bottom-12 right-10 w-64 h-32 bg-primary/5 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="relative z-10 px-5 sm:px-7 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            {/* back link */}
+            <a
+              href="/game/valorant"
+              className="inline-flex items-center gap-1.5 text-secondary/55 hover:text-foreground text-sm transition-colors mb-3"
+            >
+              <MdArrowBack size={16} className="shrink-0" />
+              <span>Valorant</span>
+            </a>
+
+            <h1 className="text-foreground font-bold text-2xl sm:text-3xl tracking-tight">
+              Tracker · Deathmatch
+            </h1>
+
+            {/* stats strip */}
+            {!loading && (
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2">
+                <span className="text-secondary/65 text-sm">
+                  {stats.total} {stats.total === 1 ? "partida" : "partidas"}
+                </span>
+                <span className="text-secondary/35 text-sm">·</span>
+                <span className="text-secondary/65 text-sm">
+                  K/D global{" "}
+                  <span className={`font-mono font-semibold ${stats.kdCls}`}>
+                    {stats.kd}
+                  </span>
+                </span>
+                <span className="text-secondary/35 text-sm hidden sm:inline">·</span>
+                <span className="font-mono text-sm hidden sm:inline">
+                  <span className="text-emerald-400">{stats.totalK}K</span>
+                  <span className="text-secondary/50"> / </span>
+                  <span className="text-red-400">{stats.totalD}D</span>
+                </span>
+              </div>
+            )}
+          </div>
+
+          {editingId !== "new" && (
+            <button
+              onClick={startNew}
+              disabled={isBusy}
+              className="flex items-center gap-1.5 px-4 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed self-start sm:self-auto shrink-0 shadow-lg shadow-primary/20"
+            >
+              <MdAdd size={19} />
+              Nueva partida
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* ── STATS CARDS ─────────────────────────────────────────────── */}
+      {!loading && (
+        <div className="mb-5">
+          <StatsBar
+            total={stats.total}
+            totalK={stats.totalK}
+            kd={stats.kd}
+            kdCls={stats.kdCls}
+            topArma={stats.topArma}
+          />
+        </div>
+      )}
 
       {/* ── content wrapper ───────────────────────────────────────── */}
       <div className="space-y-5">
-      {/* ── header ──────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-        <div>
-          <h1 className="text-foreground font-bold text-xl sm:text-2xl">
-            Tracker · Deathmatch
-          </h1>
-
-          {/* stats strip */}
-          {!loading && (
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5">
-              <span className="text-secondary/75 text-xs">
-                {stats.total} {stats.total === 1 ? "partida" : "partidas"}
-              </span>
-              <span className="text-secondary/40 text-xs hidden sm:inline">·</span>
-              <span className="text-secondary/75 text-xs">
-                K/D global{" "}
-                <span className={`font-mono font-semibold ${stats.kdCls}`}>
-                  {stats.kd}
-                </span>
-              </span>
-              <span className="text-secondary/40 text-xs hidden sm:inline">·</span>
-              <span className="font-mono text-xs">
-                <span className="text-emerald-400">{stats.totalK}K</span>
-                <span className="text-secondary/50"> / </span>
-                <span className="text-red-400">{stats.totalD}D</span>
-              </span>
-            </div>
-          )}
-        </div>
-
-        {editingId !== "new" && (
-          <button
-            onClick={startNew}
-            disabled={isBusy}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed self-start sm:self-auto shrink-0"
-          >
-            <MdAdd size={18} />
-            Nueva partida
-          </button>
-        )}
-      </div>
 
       {/* ── table ───────────────────────────────────────────────────── */}
       <div className="bg-background border border-foreground/10 rounded-xl overflow-hidden">
@@ -169,11 +199,20 @@ export default function DeathmatchTracker() {
                 {/* empty state */}
                 {!loading && records.length === 0 && editingId !== "new" && (
                   <tr>
-                    <td colSpan={8} className="px-4 py-16 text-center">
-                      <p className="text-secondary/80 text-sm font-medium">Sin partidas registradas</p>
-                      <p className="text-secondary/55 text-xs mt-1">
-                        Pulsa "Nueva partida" para añadir tu primera sesión.
-                      </p>
+                    <td colSpan={8} className="px-4 py-20 text-center">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="w-16 h-16 rounded-full bg-secondary/10 border border-foreground/10 flex items-center justify-center">
+                          <MdGpsFixed size={30} className="text-secondary/30" />
+                        </div>
+                        <div>
+                          <p className="text-foreground/75 text-base font-semibold">
+                            Sin partidas registradas
+                          </p>
+                          <p className="text-secondary/50 text-sm mt-1 max-w-xs mx-auto">
+                            Registra tu primera sesión de Deathmatch para ver tus estadísticas.
+                          </p>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 )}
