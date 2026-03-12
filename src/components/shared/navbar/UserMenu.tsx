@@ -25,7 +25,7 @@ const UserMenu = ({ userEmail }: UserMenuProps) => {
       </button>
 
       <div
-        className={`absolute right-0 mt-2 w-68  bg-background lg:bg-foreground/8 border border-foreground/10 rounded-lg shadow-xl py-1 z-100 transition-all duration-300 origin-top-right ${
+        className={`absolute right-0 mt-2 w-68  bg-background border border-foreground/10 rounded-lg shadow-xl py-1 z-100 transition-all duration-300 origin-top-right ${
           isOpen
             ? "opacity-100 scale-100"
             : "opacity-0 scale-95 pointer-events-none"

@@ -7,6 +7,8 @@ import { SkeletonRow } from "./deathmatch/SkeletonRow";
 import { ReadRow } from "./deathmatch/ReadRow";
 import { EditRow } from "./deathmatch/EditRow";
 import { StatsBar } from "./deathmatch/StatsBar";
+import { MobileCard } from "./deathmatch/MobileCard";
+import { MobileEditCard } from "./deathmatch/MobileEditCard";
 
 export default function DeathmatchTracker() {
   const {
@@ -142,8 +144,101 @@ export default function DeathmatchTracker() {
       {/* ── content wrapper ───────────────────────────────────────── */}
       <div className="space-y-5">
 
+      {/* ══ VISTA MÓVIL: tarjetas (oculto en md+) ══════════════════════ */}
+      <div className="md:hidden space-y-3">
+        {/* nueva tarjeta (form) */}
+        {editingId === "new" && (
+          <MobileEditCard
+            isNew
+            arma={editForm.arma}
+            asesinatos={editForm.asesinatos}
+            muertes={editForm.muertes}
+            objetivo={editForm.objetivo}
+            observaciones={editForm.observaciones}
+            isSaving={savingId === "new"}
+            liveKD={liveKD}
+            liveKDClass={liveKDCls}
+            onField={updateField}
+            onSave={saveNew}
+            onCancel={cancelEdit}
+          />
+        )}
+
+        {/* skeleton */}
+        {loading &&
+          Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="rounded-xl border border-foreground/10 bg-secondary/5 p-4 space-y-3 animate-pulse">
+              <div className="flex justify-between">
+                <div className="h-4 w-28 rounded bg-secondary/15" />
+                <div className="h-3 w-16 rounded bg-secondary/10" />
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="h-12 rounded-lg bg-secondary/10" />
+                <div className="h-12 rounded-lg bg-secondary/10" />
+                <div className="h-12 rounded-lg bg-secondary/10" />
+              </div>
+              <div className="h-3 w-3/4 rounded bg-secondary/10" />
+            </div>
+          ))}
+
+        {/* empty state */}
+        {!loading && records.length === 0 && editingId !== "new" && (
+          <div className="rounded-xl border border-foreground/10 bg-secondary/5 px-4 py-14 flex flex-col items-center gap-4">
+            <div className="w-14 h-14 rounded-full bg-secondary/10 border border-foreground/10 flex items-center justify-center">
+              <MdGpsFixed size={26} className="text-secondary/30" />
+            </div>
+            <div className="text-center">
+              <p className="text-foreground/75 text-base font-semibold">Sin partidas registradas</p>
+              <p className="text-secondary/50 text-sm mt-1 max-w-xs">
+                Pulsa "Nueva partida" para añadir tu primera sesión.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* tarjetas de registros */}
+        {!loading &&
+          records.map(record => {
+            const isEditing = editingId === record.id;
+
+            if (isEditing) {
+              return (
+                <MobileEditCard
+                  key={record.id}
+                  arma={editForm.arma}
+                  asesinatos={editForm.asesinatos}
+                  muertes={editForm.muertes}
+                  objetivo={editForm.objetivo}
+                  observaciones={editForm.observaciones}
+                  isSaving={savingId === record.id}
+                  liveKD={liveKD}
+                  liveKDClass={liveKDCls}
+                  onField={updateField}
+                  onSave={() => saveEdit(record.id)}
+                  onCancel={cancelEdit}
+                />
+              );
+            }
+
+            return (
+              <MobileCard
+                key={record.id}
+                record={record}
+                isDeleting={deletingId === record.id}
+                isConfirming={confirmId === record.id}
+                isBlocked={isBusy}
+                onEdit={() => startEdit(record)}
+                onDeleteRequest={() => requestDelete(record.id)}
+                onDeleteConfirm={() => handleDeleteConfirm(record.id)}
+                onDeleteCancel={cancelConfirm}
+              />
+            );
+          })}
+      </div>
+
+      {/* ══ VISTA DESKTOP: tabla (oculto debajo de md) ══════════════════ */}
       {/* ── table ───────────────────────────────────────────────────── */}
-      <div className="bg-background border border-foreground/10 rounded-xl overflow-hidden">
+      <div className="hidden md:block bg-background border border-foreground/10 rounded-xl overflow-hidden">
         {/* right-edge fade hint for horizontal scroll on mobile */}
         <div className="relative">
           <div className="absolute right-0 top-0 bottom-0 w-8 bg-linear-to-l from-background to-transparent pointer-events-none md:hidden z-10 rounded-r-xl" />
@@ -260,13 +355,6 @@ export default function DeathmatchTracker() {
           </div>
         </div>
       </div>
-
-      {/* hint for mobile */}
-      {!loading && records.length > 0 && (
-        <p className="text-secondary/25 text-xs text-center md:hidden">
-          Desliza la tabla para ver más columnas
-        </p>
-      )}
 
       <ToastContainer toasts={toasts} onDismiss={dismiss} />
       </div>
