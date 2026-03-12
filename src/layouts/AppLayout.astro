@@ -18,7 +18,7 @@ const { user } = Astro.locals;
       Static navbar shell — rendered as plain HTML; no JavaScript shipped for this structure.
       Only UserMenu (interactive dropdown island) is hydrated with client:load.
     -->
-    <nav class="relative bg-background border-b border-foreground/10">
+    <nav class="sticky top-0 z-30 bg-background border-b border-foreground/10">
       <div class="flex items-center justify-between w-full px-0 py-0">
         <div class="flex items-center gap-2">
           <a
