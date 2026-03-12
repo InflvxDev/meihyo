@@ -1,0 +1,52 @@
+---
+import AppLayout from "../../../layouts/AppLayout.astro";
+import { VALORANT_MODES } from "../../../lib/const/ValorantModes";
+---
+
+<AppLayout title="Valorant | Meihyo" route="Valorant">
+  <div class="min-h-screen px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <!-- Header -->
+    <div class="flex flex-col items-start mb-12 gap-2">
+      <div class="flex items-center gap-3">
+        <img src="/logos/valorant.webp" alt="Valorant" class="w-10 h-10 object-contain bg-foreground/40 rounded-full p-1" />
+        <h1 class="text-foreground text-2xl sm:text-3xl font-bold tracking-tight">
+          Valorant Tracker
+        </h1>
+      </div>
+      <p class="text-secondary/70 text-sm sm:text-base">
+        Selecciona el modo de juego en el que vas a entrenar o trackear
+      </p>
+    </div>
+
+    <!-- Mode cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl">
+      {VALORANT_MODES.map((mode) => (
+        <a
+          href={mode.href}
+          class={`group relative flex flex-col rounded-2xl bg-background border ${mode.accentColor} overflow-hidden hover:scale-[1.02] hover:shadow-[0_8px_32px_-4px_rgba(0,0,0,0.25)] transition-all duration-200`}
+        >
+          <!-- Gradient image area -->
+          <div class={`h-36 w-full ${mode.bgColor} flex items-center justify-center`}>
+            <img
+              src={mode.image}
+              alt={mode.title}
+              class="w-16 h-16 object-contain brightness-0 dark:brightness-100 dark:invert-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-200"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="flex flex-col flex-1 p-5 gap-2">
+            <h2 class="text-foreground font-semibold text-base">{mode.title}</h2>
+            <p class="text-secondary/60 text-sm leading-relaxed flex-1">{mode.description}</p>
+            <span class="text-primary text-sm font-medium mt-3 flex items-center gap-1 group-hover:gap-2 transition-all duration-150">
+              Seleccionar
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path fill-rule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clip-rule="evenodd" />
+              </svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</AppLayout>
