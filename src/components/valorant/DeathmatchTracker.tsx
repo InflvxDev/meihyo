@@ -70,61 +70,65 @@ export default function DeathmatchTracker() {
   return (
     <div className="p-4 sm:p-6 w-full min-h-screen">
       {/* ── HERO BANNER ─────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden rounded-xl border border-foreground/10 bg-secondary/5 mb-5">
-        {/* decorative top glow line */}
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/55 to-transparent" />
-        {/* decorative bg blob */}
-        <div className="absolute -top-10 left-1/3 w-96 h-44 bg-primary/10 blur-3xl rounded-full pointer-events-none" />
-        <div className="absolute -bottom-12 right-10 w-64 h-32 bg-primary/5 blur-3xl rounded-full pointer-events-none" />
+      <div className="rounded-xl border border-foreground/15 bg-secondary/10 mb-6">
+        <div className="px-6 sm:px-8 py-6 sm:py-7">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+            <div className="space-y-3">
+              {/* back link */}
+              <a
+                href="/game/valorant"
+                className="group inline-flex items-center gap-1.5 text-secondary/55 hover:text-primary text-xs font-semibold tracking-widest uppercase transition-colors duration-150"
+              >
+                <MdArrowBack
+                  size={13}
+                  className="shrink-0 group-hover:-translate-x-0.5 transition-transform duration-150"
+                />
+                <span>Valorant</span>
+              </a>
 
-        <div className="relative z-10 px-5 sm:px-7 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            {/* back link */}
-            <a
-              href="/game/valorant"
-              className="inline-flex items-center gap-1.5 text-secondary/55 hover:text-foreground text-sm transition-colors mb-3"
-            >
-              <MdArrowBack size={16} className="shrink-0" />
-              <span>Valorant</span>
-            </a>
-
-            <h1 className="text-foreground font-bold text-2xl sm:text-3xl tracking-tight">
-              Tracker · Deathmatch
-            </h1>
-
-            {/* stats strip */}
-            {!loading && (
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2">
-                <span className="text-secondary/65 text-sm">
-                  {stats.total} {stats.total === 1 ? "partida" : "partidas"}
-                </span>
-                <span className="text-secondary/35 text-sm">·</span>
-                <span className="text-secondary/65 text-sm">
-                  K/D global{" "}
-                  <span className={`font-mono font-semibold ${stats.kdCls}`}>
-                    {stats.kd}
+              {/* title block */}
+              <div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <MdGpsFixed size={15} className="text-primary shrink-0" />
+                  <span className="text-primary text-[11px] font-bold tracking-[0.18em] uppercase">
+                    Deathmatch
                   </span>
-                </span>
-                <span className="text-secondary/35 text-sm hidden sm:inline">·</span>
-                <span className="font-mono text-sm hidden sm:inline">
-                  <span className="text-emerald-400">{stats.totalK}K</span>
-                  <span className="text-secondary/50"> / </span>
-                  <span className="text-red-400">{stats.totalD}D</span>
-                </span>
+                </div>
+                <h1 className="text-foreground font-bold text-3xl sm:text-4xl tracking-tight leading-none">
+                  Tracker
+                </h1>
               </div>
+
+              {/* stats pills */}
+              {!loading && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-secondary/15 border border-foreground/12 text-secondary/80 text-xs font-medium">
+                    {stats.total} {stats.total === 1 ? "partida" : "partidas"}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-secondary/15 border border-foreground/12 text-xs font-medium">
+                    <span className="text-secondary/65">K/D</span>
+                    <span className={`font-mono font-bold ${stats.kdCls}`}>{stats.kd}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-secondary/15 border border-foreground/12 text-xs font-mono font-semibold">
+                    <span className="text-emerald-500">{stats.totalK}K</span>
+                    <span className="text-secondary/40 mx-0.5">/</span>
+                    <span className="text-red-500">{stats.totalD}D</span>
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {editingId !== "new" && (
+              <button
+                onClick={startNew}
+                disabled={isBusy}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/85 text-white text-sm font-semibold rounded-lg transition-colors duration-150 disabled:opacity-40 disabled:cursor-not-allowed self-start sm:self-auto shrink-0"
+              >
+                <MdAdd size={18} />
+                Nueva partida
+              </button>
             )}
           </div>
-
-          {editingId !== "new" && (
-            <button
-              onClick={startNew}
-              disabled={isBusy}
-              className="flex items-center gap-1.5 px-4 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed self-start sm:self-auto shrink-0 shadow-lg shadow-primary/20"
-            >
-              <MdAdd size={19} />
-              Nueva partida
-            </button>
-          )}
         </div>
       </div>
 
@@ -238,12 +242,8 @@ export default function DeathmatchTracker() {
 
       {/* ══ VISTA DESKTOP: tabla (oculto debajo de md) ══════════════════ */}
       {/* ── table ───────────────────────────────────────────────────── */}
-      <div className="hidden md:block bg-background border border-foreground/10 rounded-xl overflow-hidden">
-        {/* right-edge fade hint for horizontal scroll on mobile */}
-        <div className="relative">
-          <div className="absolute right-0 top-0 bottom-0 w-8 bg-linear-to-l from-background to-transparent pointer-events-none md:hidden z-10 rounded-r-xl" />
-
-          <div className="overflow-x-auto">
+      <div className="hidden md:block bg-background border border-foreground/12 rounded-xl overflow-hidden">
+        <div className="overflow-x-auto">
             <table className="w-full text-base min-w-250">
               <colgroup>
                 <col className="w-44" />
@@ -257,12 +257,12 @@ export default function DeathmatchTracker() {
               </colgroup>
 
               <thead>
-                <tr className="border-b border-foreground/10 bg-secondary/5">
-                  <th className="px-4 py-4 text-left   text-sm font-semibold text-secondary/75 uppercase tracking-wider">Arma</th>
-                  <th className="px-4 py-4 text-center text-sm font-semibold text-emerald-400/80 uppercase tracking-wider">K</th>
-                  <th className="px-4 py-4 text-center text-sm font-semibold text-red-400/80 uppercase tracking-wider">D</th>
-                  <th className="px-4 py-4 text-center text-sm font-semibold text-secondary/75 uppercase tracking-wider">K/D</th>
-                  <th className="px-4 py-4 text-left   text-sm font-semibold text-secondary/75 uppercase tracking-wider">Objetivo</th>
+                <tr className="border-b border-foreground/12 bg-secondary/10">
+                  <th className="px-4 py-4 text-left   text-sm font-semibold text-secondary/80 uppercase tracking-wider">Arma</th>
+                  <th className="px-4 py-4 text-center text-sm font-semibold text-emerald-500 uppercase tracking-wider">K</th>
+                  <th className="px-4 py-4 text-center text-sm font-semibold text-red-500 uppercase tracking-wider">D</th>
+                  <th className="px-4 py-4 text-center text-sm font-semibold text-secondary/80 uppercase tracking-wider">K/D</th>
+                  <th className="px-4 py-4 text-left   text-sm font-semibold text-secondary/80 uppercase tracking-wider">Objetivo</th>
                   <th className="px-4 py-4 text-left   text-sm font-semibold text-secondary/75 uppercase tracking-wider">Observaciones</th>
                   <th className="px-4 py-4 text-left   text-sm font-semibold text-secondary/75 uppercase tracking-wider">Fecha</th>
                   <th className="px-4 py-4" />
@@ -353,7 +353,6 @@ export default function DeathmatchTracker() {
               </tbody>
             </table>
           </div>
-        </div>
       </div>
 
       <ToastContainer toasts={toasts} onDismiss={dismiss} />

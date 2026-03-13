@@ -25,28 +25,28 @@ export function ReadRow({
 }: ReadRowProps) {
   return (
     <tr
-      className={`border-b border-foreground/5 last:border-0 transition-colors ${
-        isDeleting ? "opacity-40" : "hover:bg-secondary/5"
+      className={`border-b border-foreground/8 last:border-0 transition-colors ${
+        isDeleting ? "opacity-40" : "hover:bg-secondary/8"
       }`}
     >
       {/* Arma */}
       <td className="px-4 py-4">
         <span className="text-foreground text-base font-medium">
-          {record.arma ?? <span className="text-secondary/40">—</span>}
+          {record.arma ?? <span className="text-secondary/45">—</span>}
         </span>
       </td>
 
       {/* K */}
       <td className="px-4 py-4 text-center">
-        <span className="text-emerald-400 font-mono font-bold text-base">
-          {record.asesinatos ?? <span className="text-secondary/40 text-sm font-normal">—</span>}
+        <span className="text-emerald-500 font-mono font-bold text-base">
+          {record.asesinatos ?? <span className="text-secondary/45 text-sm font-normal">—</span>}
         </span>
       </td>
 
       {/* D */}
       <td className="px-4 py-4 text-center">
-        <span className="text-red-400 font-mono font-bold text-base">
-          {record.muertes ?? <span className="text-secondary/40 text-sm font-normal">—</span>}
+        <span className="text-red-500 font-mono font-bold text-base">
+          {record.muertes ?? <span className="text-secondary/45 text-sm font-normal">—</span>}
         </span>
       </td>
 
@@ -57,7 +57,7 @@ export function ReadRow({
 
       {/* Objetivo */}
       <td className="px-4 py-4">
-        <span className="text-secondary/85 text-sm">
+        <span className="text-secondary/90 text-sm">
           {record.objetivo ?? <span className="text-secondary/40">—</span>}
         </span>
       </td>
@@ -74,7 +74,7 @@ export function ReadRow({
 
       {/* Fecha */}
       <td className="px-4 py-4">
-        <span className="text-secondary/65 text-sm whitespace-nowrap">{fmtDate(record.created_at)}</span>
+        <span className="text-secondary/70 text-sm whitespace-nowrap">{fmtDate(record.created_at)}</span>
       </td>
 
       {/* Acciones */}

@@ -38,10 +38,7 @@ export function MobileEditCard({
   };
 
   return (
-    <div className="rounded-xl border border-primary/30 bg-primary/5 overflow-hidden">
-      {/* top accent line */}
-      <div className="h-px bg-linear-to-r from-transparent via-primary/55 to-transparent" />
-
+    <div className="rounded-xl border border-primary/35 bg-primary/8">
       <div className="px-4 py-4 space-y-3">
         {/* title */}
         <p className="text-foreground/80 text-sm font-semibold">

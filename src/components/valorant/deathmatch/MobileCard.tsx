@@ -28,13 +28,10 @@ export function MobileCard({
 
   return (
     <div
-      className={`rounded-xl border border-foreground/10 bg-secondary/5 overflow-hidden transition-opacity ${
+      className={`rounded-xl border border-foreground/12 bg-secondary/10 transition-opacity ${
         isDeleting ? "opacity-40" : ""
       }`}
     >
-      {/* top glow line (accent) */}
-      <div className="h-px bg-linear-to-r from-transparent via-primary/25 to-transparent" />
-
       <div className="px-4 py-3">
         {/* header row: arma + date */}
         <div className="flex items-start justify-between gap-2 mb-3">
@@ -47,21 +44,21 @@ export function MobileCard({
         </div>
 
         {/* stats row: K / D / K·D */}
-        <div className="flex items-center gap-0 mb-3 rounded-lg bg-secondary/5 border border-foreground/8 overflow-hidden">
-          <div className="flex-1 text-center py-2 border-r border-foreground/8">
-            <p className="text-secondary/50 text-xs uppercase tracking-wider mb-0.5">K</p>
-            <p className="text-emerald-400 font-mono font-bold text-lg leading-none">
-              {record.asesinatos ?? <span className="text-secondary/35 text-sm font-normal">—</span>}
+        <div className="flex items-center gap-0 mb-3 rounded-lg bg-secondary/8 border border-foreground/12 overflow-hidden">
+          <div className="flex-1 text-center py-2 border-r border-foreground/12">
+            <p className="text-secondary/60 text-xs uppercase tracking-wider mb-0.5">K</p>
+            <p className="text-emerald-500 font-mono font-bold text-lg leading-none">
+              {record.asesinatos ?? <span className="text-secondary/40 text-sm font-normal">—</span>}
             </p>
           </div>
-          <div className="flex-1 text-center py-2 border-r border-foreground/8">
-            <p className="text-secondary/50 text-xs uppercase tracking-wider mb-0.5">D</p>
-            <p className="text-red-400 font-mono font-bold text-lg leading-none">
-              {record.muertes ?? <span className="text-secondary/35 text-sm font-normal">—</span>}
+          <div className="flex-1 text-center py-2 border-r border-foreground/12">
+            <p className="text-secondary/60 text-xs uppercase tracking-wider mb-0.5">D</p>
+            <p className="text-red-500 font-mono font-bold text-lg leading-none">
+              {record.muertes ?? <span className="text-secondary/40 text-sm font-normal">—</span>}
             </p>
           </div>
           <div className="flex-1 text-center py-2">
-            <p className="text-secondary/50 text-xs uppercase tracking-wider mb-0.5">K/D</p>
+            <p className="text-secondary/60 text-xs uppercase tracking-wider mb-0.5">K/D</p>
             <p className={`font-mono font-bold text-lg leading-none ${kdCls}`}>{kd}</p>
           </div>
         </div>

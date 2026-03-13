@@ -35,8 +35,8 @@ export function EditRow({
 
   return (
     <tr
-      className={`border-b border-primary/20 ${
-        isNew ? "bg-primary/5" : "bg-primary/5 border-l-2 border-l-primary/40"
+      className={`border-b border-primary/25 ${
+        isNew ? "bg-primary/8" : "bg-primary/8 border-l-2 border-l-primary/60"
       }`}
     >
       {/* Arma */}

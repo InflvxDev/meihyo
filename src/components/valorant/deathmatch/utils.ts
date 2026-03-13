@@ -14,7 +14,7 @@ export function kdDisplay(k: number | null | undefined, d: number | null | undef
 export function kdClass(k: number | null | undefined, d: number | null | undefined) {
   const r = calcKD(k, d);
   if (r === null || r === Infinity) return "text-secondary/40";
-  return r >= 1 ? "text-emerald-400" : "text-red-400";
+  return r >= 1 ? "text-emerald-500" : "text-red-500";
 }
 
 export function fmtDate(ts: string) {
