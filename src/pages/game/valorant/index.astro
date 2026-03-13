@@ -23,24 +23,35 @@ import { VALORANT_MODES } from "../../../lib/const/ValorantModes";
       {VALORANT_MODES.map((mode) => (
         <a
           href={mode.href}
-          class={`group relative flex flex-col rounded-2xl bg-background border ${mode.accentColor} overflow-hidden hover:scale-[1.02] hover:shadow-[0_8px_32px_-4px_rgba(0,0,0,0.25)] transition-all duration-200`}
+          class={`group relative flex flex-col rounded-2xl border bg-background/60 ${mode.accentColor} overflow-hidden hover:scale-[1.02] hover:-translate-y-1 ${mode.shadowClass} transition-all duration-300`}
         >
-          <!-- Gradient image area -->
-          <div class={`h-36 w-full ${mode.bgColor} flex items-center justify-center`}>
+          <!-- Subtle full-card gradient tint -->
+          <div class={`absolute inset-0 ${mode.bgColor} opacity-30 pointer-events-none`} />
+
+          <!-- Watermark image (background) -->
+          <div class="absolute right-0 top-0 bottom-0 w-1/2 flex items-center justify-end pr-5 pointer-events-none select-none">
             <img
               src={mode.image}
-              alt={mode.title}
-              class="w-16 h-16 object-contain brightness-0 dark:brightness-100 dark:invert-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-200"
+              alt=""
+              aria-hidden="true"
+              class="w-28 h-28 object-contain invert dark:invert-0 opacity-[0.12] group-hover:opacity-[0.22] dark:opacity-[0.07] dark:group-hover:opacity-[0.14] transition-opacity duration-300"
             />
           </div>
 
           <!-- Content -->
-          <div class="flex flex-col flex-1 p-5 gap-2">
-            <h2 class="text-foreground font-semibold text-base">{mode.title}</h2>
-            <p class="text-secondary/60 text-sm leading-relaxed flex-1">{mode.description}</p>
-            <span class="text-primary text-sm font-medium mt-3 flex items-center gap-1 group-hover:gap-2 transition-all duration-150">
+          <div class="relative z-10 flex flex-col flex-1 p-6 gap-3">
+            <!-- Badge -->
+            <span class={`self-start text-[10px] font-semibold uppercase tracking-widest px-2.5 py-0.5 rounded-full border ${mode.accentColor} ${mode.textAccent} bg-transparent`}>
+              Modo
+            </span>
+
+            <h2 class="text-foreground font-bold text-lg leading-snug">{mode.title}</h2>
+            <p class="text-secondary/80 text-sm leading-relaxed flex-1">{mode.description}</p>
+
+            <!-- CTA -->
+            <span class={`flex items-center gap-1.5 text-sm font-semibold mt-2 ${mode.textAccent} group-hover:gap-3 transition-all duration-200`}>
               Seleccionar
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="group-hover:translate-x-0.5 transition-transform duration-200">
                 <path fill-rule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clip-rule="evenodd" />
               </svg>
             </span>
